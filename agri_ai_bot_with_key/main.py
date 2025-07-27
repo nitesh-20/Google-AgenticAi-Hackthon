@@ -8,6 +8,14 @@ from fastapi.responses import JSONResponse
 from dotenv import load_dotenv
 from mcp_root.agent import mcp_router
 
+# Import AgroAI agent (placeholder, update import as needed)
+try:
+    from mcp_root.sub_mcps.mcp3_crop_advisory.agent import handle_agroai_query
+except ImportError:
+    # Placeholder function if not implemented
+    async def handle_agroai_query(query: str):
+        return {"response": f"AgroAI response for: {query}"}
+
 load_dotenv()
 app = FastAPI()
 app.add_middleware(
@@ -20,6 +28,15 @@ app.add_middleware(
 
 @app.post("/query")
 async def text_query(query: str = Form(...)):
+    result = await mcp_router.route_text(query)
+    return JSONResponse(content=result)
+
+# AgroAI Chatbot endpoint
+@app.post("/agroai_chat")
+async def agroai_chat(query: str = Form(...)):
+    """
+    Endpoint for AgroAI chatbot queries. Accepts a text query and returns the Gemini/AgroAI agent's response.
+    """
     result = await mcp_router.route_text(query)
     return JSONResponse(content=result)
 
