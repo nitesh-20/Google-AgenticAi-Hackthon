@@ -222,12 +222,13 @@ body {
 }
 
 .main-layout {
-  max-width: 1200px;
-  margin: 0 auto;
+  width: 100vw;
   display: flex;
   gap: 0;
   background: transparent;
   box-shadow: none;
+  margin: 0;
+  max-width: none;
 }
 
 /* Left Sidebar */
@@ -372,6 +373,7 @@ body {
 }
 
 /* Main Content */
+
 .main-content {
   flex: 1;
   margin-left: 0;
@@ -387,15 +389,21 @@ body {
   }
 }
 
+@media (min-width: 1024px) {
+  .main-content {
+    margin-left: 260px;
+  }
+}
+
 .content-wrapper {
-  max-width: 600px;
-  margin: 0 auto;
+  width: 600px;
   border-left: 1px solid var(--border);
   border-right: 1px solid var(--border);
   min-height: 100vh;
   background: transparent;
   box-shadow: none;
   padding: 0;
+  margin: 0;
 }
 
 .content-header {

@@ -656,309 +656,305 @@ const AgriSocio = () => {
 
 // Main return block for AgriSocio component
   return (
-    <div className="agrisocio-container">
-      <div className="main-layout" style={{ display: 'flex' }}>
-        {/* Left Sidebar */}
-        <div className="left-sidebar">
-          <div className="logo">
-            <h1>🌾 AgriSocio</h1>
-          </div>
-          <nav className="navigation">
-            {[
-              { icon: Home, label: 'Home', id: 'home' },
-              { icon: Search, label: 'Explore', id: 'explore' },
-              { icon: Bell, label: 'Notifications', id: 'notifications' },
-              { icon: Mail, label: 'Messages', id: 'messages' },
-              { icon: Bookmark, label: 'Bookmarks', id: 'bookmarks' },
-              { icon: Users, label: 'Communities', id: 'communities' },
-              { icon: User, label: 'Profile', id: 'profile' },
-              { icon: MoreHorizontal, label: 'More', id: 'more' }
-            ].map((item) => (
-              <button
-                key={item.id}
-                className={`nav-item ${activeTab === item.id ? 'active' : ''}`}
-                onClick={() => setActiveTab(item.id)}
-              >
-                <item.icon className="nav-icon" />
-                {item.label}
-              </button>
-            ))}
-          </nav>
-          <button className="post-button">Post</button>
-          <div className="user-section">
-            <div 
-              className="user-profile"
-              onClick={() => setShowProfile(currentUser)}
+    <div className="main-layout">
+      {/* Left Sidebar */}
+      <div className="left-sidebar">
+        <div className="logo">
+          <h1>🌾 AgriSocio</h1>
+        </div>
+        <nav className="navigation">
+          {[ 
+            { icon: Home, label: 'Home', id: 'home' },
+            { icon: Search, label: 'Explore', id: 'explore' },
+            { icon: Bell, label: 'Notifications', id: 'notifications' },
+            { icon: Mail, label: 'Messages', id: 'messages' },
+            { icon: Bookmark, label: 'Bookmarks', id: 'bookmarks' },
+            { icon: Users, label: 'Communities', id: 'communities' },
+            { icon: User, label: 'Profile', id: 'profile' },
+            { icon: MoreHorizontal, label: 'More', id: 'more' }
+          ].map((item) => (
+            <button
+              key={item.id}
+              className={`nav-item ${activeTab === item.id ? 'active' : ''}`}
+              onClick={() => setActiveTab(item.id)}
             >
-              <div className="user-avatar">
-                <img src={currentUser.avatar} alt={currentUser.name} />
-              </div>
-              <div className="user-details">
-                <p className="user-name">{currentUser.name}</p>
-                <p className="user-handle">@{currentUser.handle}</p>
-              </div>
-              <MoreHorizontal className="more-icon" />
+              <item.icon className="nav-icon" />
+              {item.label}
+            </button>
+          ))}
+        </nav>
+        <button className="post-button">Post</button>
+        <div className="user-section">
+          <div 
+            className="user-profile"
+            onClick={() => setShowProfile(currentUser)}
+          >
+            <div className="user-avatar">
+              <img src={currentUser.avatar} alt={currentUser.name} />
             </div>
+            <div className="user-details">
+              <p className="user-name">{currentUser.name}</p>
+              <p className="user-handle">@{currentUser.handle}</p>
+            </div>
+            <MoreHorizontal className="more-icon" />
           </div>
         </div>
-        {/* Main Content */}
-        <div className="main-content">
-          <div className="content-wrapper">
-            <div className="content-header">
-              <h1>{activeTab.charAt(0).toUpperCase() + activeTab.slice(1)}</h1>
-            </div>
-            {/* Main Section Switch */}
-            {activeTab === 'home' && (
-              <>
-                {/* Post Composer */}
-                <div className="post-composer">
-                  <div className="composer-content">
-                    <div className="composer-avatar">
-                      <img src={currentUser.avatar} alt={currentUser.name} />
-                    </div>
-                    <div className="composer-main">
-                      <textarea
-                        placeholder="What's happening on your farm?"
-                        className="composer-textarea"
-                        rows={3}
-                        value={newPost}
-                        onChange={(e) => setNewPost(e.target.value)}
-                      />
-                      <div className="composer-actions">
-                        <div className="media-buttons">
-                          <button
-                            className="media-btn"
-                            type="button"
-                            onClick={() => fileInputRef.current && fileInputRef.current.click()}
-                            aria-label="Add Photo"
-                          >
-                            <Camera className="icon" />
-                          </button>
-                          <input
-                            type="file"
-                            accept="image/*"
-                            style={{ display: 'none' }}
-                            ref={fileInputRef}
-                            onChange={handleImageChange}
-                          />
-                          <button
-                            className="media-btn"
-                            type="button"
-                            onClick={() => videoInputRef.current && videoInputRef.current.click()}
-                            aria-label="Add Video"
-                          >
-                            <Video className="icon" />
-                          </button>
-                          <input
-                            type="file"
-                            accept="video/*"
-                            style={{ display: 'none' }}
-                            ref={videoInputRef}
-                            onChange={handleVideoChange}
-                          />
-                          <button className="media-btn" type="button">
-                            <BarChart3 className="icon" />
-                          </button>
-                          <button className="media-btn" type="button">
-                            <Smile className="icon" />
-                          </button>
-                        </div>
-                        {(imagePreview || videoPreview) && (
-                          <div className="media-preview" style={{ marginTop: 10 }}>
-                            {imagePreview && (
-                              <img src={imagePreview} alt="Preview" style={{ maxWidth: 120, maxHeight: 120, borderRadius: 8 }} />
-                            )}
-                            {videoPreview && (
-                              <video src={videoPreview} controls style={{ maxWidth: 160, maxHeight: 120, borderRadius: 8 }} />
-                            )}
-                            <button
-                              type="button"
-                              style={{ marginLeft: 10, color: '#f44', background: 'none', border: 'none', cursor: 'pointer' }}
-                              onClick={() => { setNewImage(null); setImagePreview(null); setNewVideo(null); setVideoPreview(null); }}
-                            >
-                              Remove
-                            </button>
-                          </div>
-                        )}
+      </div>
+      {/* Main Content */}
+      <div className="main-content">
+        <div className="content-wrapper" style={{ margin: '0 auto', minHeight: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center', background: 'transparent', boxShadow: 'none', padding: 0 }}>
+          <div className="content-header">
+            <h1>{activeTab.charAt(0).toUpperCase() + activeTab.slice(1)}</h1>
+          </div>
+          {/* Main Tabs and Content */}
+          {activeTab === 'home' && (
+            <>
+              <div className="post-composer">
+                <div className="composer-content">
+                  <div className="composer-avatar">
+                    <img src={currentUser.avatar} alt={currentUser.name} />
+                  </div>
+                  <div className="composer-main">
+                    <textarea
+                      placeholder="What's happening on your farm?"
+                      className="composer-textarea"
+                      rows={3}
+                      value={newPost}
+                      onChange={(e) => setNewPost(e.target.value)}
+                    />
+                    <div className="composer-actions">
+                      <div className="media-buttons">
                         <button
-                          onClick={handlePost}
-                          disabled={!newPost.trim() && !imagePreview && !videoPreview}
-                          className="submit-btn"
+                          className="media-btn"
+                          type="button"
+                          onClick={() => fileInputRef.current && fileInputRef.current.click()}
+                          aria-label="Add Photo"
                         >
-                          Post
+                          <Camera className="icon" />
+                        </button>
+                        <input
+                          type="file"
+                          accept="image/*"
+                          style={{ display: 'none' }}
+                          ref={fileInputRef}
+                          onChange={handleImageChange}
+                        />
+                        <button
+                          className="media-btn"
+                          type="button"
+                          onClick={() => videoInputRef.current && videoInputRef.current.click()}
+                          aria-label="Add Video"
+                        >
+                          <Video className="icon" />
+                        </button>
+                        <input
+                          type="file"
+                          accept="video/*"
+                          style={{ display: 'none' }}
+                          ref={videoInputRef}
+                          onChange={handleVideoChange}
+                        />
+                        <button className="media-btn" type="button">
+                          <BarChart3 className="icon" />
+                        </button>
+                        <button className="media-btn" type="button">
+                          <Smile className="icon" />
                         </button>
                       </div>
-                    </div>
-                  </div>
-                </div>
-                {/* Feed */}
-                {shareMsg && (
-                  <div style={{ color: '#16a34a', textAlign: 'center', margin: '10px 0', fontWeight: 600 }}>{shareMsg}</div>
-                )}
-                <div className="feed">
-                  {posts.map((post) => (
-                    <PostCard key={post.id} post={post} />
-                  ))}
-                </div>
-              </>
-            )}
-            {activeTab === 'explore' && (
-              <div className="explore-section" style={{ padding: 32 }}>
-                <h2>Explore Agriculture</h2>
-                <div className="explore-feed">
-                  <div className="explore-card">
-                    <h3>🌱 New Sustainable Farming Techniques</h3>
-                    <p>Discover the latest in crop rotation, organic fertilizers, and water-saving irrigation. #SustainableFarming</p>
-                  </div>
-                  <div className="explore-card">
-                    <h3>🚁 Drone Technology in Fields</h3>
-                    <p>How drones are helping farmers monitor crops and fight pests. #DroneAgriculture</p>
-                  </div>
-                  <div className="explore-card">
-                    <h3>🌾 Trending Crop: Millets</h3>
-                    <p>Millets are gaining popularity for their resilience and nutrition. #MilletRevolution</p>
-                  </div>
-                </div>
-              </div>
-            )}
-            {activeTab === 'notifications' && (
-              <div className="notifications-section" style={{ padding: 32 }}>
-                <h2>Notifications</h2>
-                <ul>
-                  <li>Priya Agri Solutions liked your post.</li>
-                  <li>AgriTech India followed you.</li>
-                  <li>Organic Farming commented: "Great tips!"</li>
-                  <li>Your poll received 10 new votes.</li>
-                </ul>
-              </div>
-            )}
-            {activeTab === 'bookmarks' && (
-              <div className="bookmarks-section" style={{ padding: 32 }}>
-                <h2>Bookmarked Posts</h2>
-                <div className="explore-card">No bookmarks yet. Save posts to see them here!</div>
-              </div>
-            )}
-            {activeTab === 'communities' && (
-              <div className="communities-section" style={{ padding: 32 }}>
-                <h2>Communities</h2>
-                <div className="explore-card">Join communities to connect with other farmers and agri-experts!</div>
-                <ul>
-                  <li>#OrganicFarming</li>
-                  <li>#WheatHarvest</li>
-                  <li>#DroneAgriculture</li>
-                  <li>#MarketUpdates</li>
-                </ul>
-              </div>
-            )}
-            {activeTab === 'profile' && (
-              <div className="profile-section" style={{ padding: 32 }}>
-                <h2>Your Profile</h2>
-                <div className="explore-card">
-                  <strong>{currentUser.name}</strong> <span>@{currentUser.handle}</span>
-                  <p>{currentUser.bio}</p>
-                  <p>Location: {currentUser.location}</p>
-                  <p>Followers: {currentUser.followers} | Following: {currentUser.following}</p>
-                </div>
-              </div>
-            )}
-            {activeTab === 'messages' && (
-              <div className="dm-section" style={{ display: 'flex', height: '70vh', background: 'var(--surface)', borderRadius: 12, overflow: 'hidden', margin: 24 }}>
-                <div style={{ width: 220, borderRight: '1px solid var(--border)', background: 'var(--background)', padding: 12 }}>
-                  <h3 style={{ margin: '8px 0 12px 0', color: 'var(--primary-color)' }}>Chats</h3>
-                  {fakeUsers.map(u => (
-                    <div
-                      key={u.id}
-                      style={{ display: 'flex', alignItems: 'center', gap: 10, padding: 8, borderRadius: 8, cursor: 'pointer', background: activeChat?.id === u.id ? 'var(--surface)' : 'none', fontWeight: activeChat?.id === u.id ? 600 : 400 }}
-                      onClick={() => setActiveChat(u)}
-                    >
-                      <img src={u.avatar} alt={u.name} style={{ width: 36, height: 36, borderRadius: '50%' }} />
-                      <div>
-                        <div>{u.name}</div>
-                        <div style={{ fontSize: 13, color: 'var(--text-muted)' }}>@{u.handle}</div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-                <div style={{ flex: 1, display: 'flex', flexDirection: 'column', background: 'var(--surface)' }}>
-                  {activeChat ? (
-                    <>
-                      <div style={{ padding: 12, borderBottom: '1px solid var(--border)', display: 'flex', alignItems: 'center', gap: 10 }}>
-                        <img src={activeChat.avatar} alt={activeChat.name} style={{ width: 36, height: 36, borderRadius: '50%' }} />
-                        <div>
-                          <div style={{ fontWeight: 600 }}>{activeChat.name}</div>
-                          <div style={{ fontSize: 13, color: 'var(--text-muted)' }}>@{activeChat.handle}</div>
+                      {(imagePreview || videoPreview) && (
+                        <div className="media-preview" style={{ marginTop: 10 }}>
+                          {imagePreview && (
+                            <img src={imagePreview} alt="Preview" style={{ maxWidth: 120, maxHeight: 120, borderRadius: 8 }} />
+                          )}
+                          {videoPreview && (
+                            <video src={videoPreview} controls style={{ maxWidth: 160, maxHeight: 120, borderRadius: 8 }} />
+                          )}
+                          <button
+                            type="button"
+                            style={{ marginLeft: 10, color: '#f44', background: 'none', border: 'none', cursor: 'pointer' }}
+                            onClick={() => { setNewImage(null); setImagePreview(null); setNewVideo(null); setVideoPreview(null); }}
+                          >
+                            Remove
+                          </button>
                         </div>
-                      </div>
-                      <div style={{ flex: 1, overflowY: 'auto', padding: 16, display: 'flex', flexDirection: 'column', gap: 10 }}>
-                        {(dmMessages[activeChat.id] || []).map((msg, i) => (
-                          <div key={i} style={{ alignSelf: msg.from === 'me' ? 'flex-end' : 'flex-start', background: msg.from === 'me' ? 'var(--primary-color)' : 'var(--surface)', color: msg.from === 'me' ? '#fff' : 'var(--text-primary)', borderRadius: 12, padding: '7px 14px', maxWidth: 260 }}>
-                            {msg.text}
-                          </div>
-                        ))}
-                      </div>
-                      <div style={{ display: 'flex', gap: 8, padding: 12, borderTop: '1px solid var(--border)' }}>
-                        <input
-                          type="text"
-                          value={dmInput}
-                          onChange={e => setDmInput(e.target.value)}
-                          onKeyDown={e => { if (e.key === 'Enter') handleSendDm(); }}
-                          placeholder={`Message @${activeChat.handle}`}
-                          style={{ flex: 1, borderRadius: 8, border: '1px solid var(--border)', padding: 8, fontSize: 15 }}
-                        />
-                        <button onClick={handleSendDm} className="submit-btn" style={{ padding: '6px 18px', fontSize: 15 }}>Send</button>
-                      </div>
-                    </>
-                  ) : (
-                    <div style={{ color: 'var(--text-muted)', textAlign: 'center', marginTop: 60 }}>Select a chat to start messaging</div>
-                  )}
+                      )}
+                      <button
+                        onClick={handlePost}
+                        disabled={!newPost.trim() && !imagePreview && !videoPreview}
+                        className="submit-btn"
+                      >
+                        Post
+                      </button>
+                    </div>
+                  </div>
                 </div>
               </div>
-            )}
-            {/* Add more tab content here for explore, notifications, bookmarks, etc. */}
-          </div>
+              {/* Feed */}
+              {shareMsg && (
+                <div style={{ color: '#16a34a', textAlign: 'center', margin: '10px 0', fontWeight: 600 }}>{shareMsg}</div>
+              )}
+              <div className="feed">
+                {posts.map((post) => (
+                  <PostCard key={post.id} post={post} />
+                ))}
+              </div>
+            </>
+          )}
+          {activeTab === 'explore' && (
+            <div className="explore-section" style={{ padding: 32 }}>
+              <h2>Explore Agriculture</h2>
+              <div className="explore-feed">
+                <div className="explore-card">
+                  <h3>🌱 New Sustainable Farming Techniques</h3>
+                  <p>Discover the latest in crop rotation, organic fertilizers, and water-saving irrigation. #SustainableFarming</p>
+                </div>
+                <div className="explore-card">
+                  <h3>🚁 Drone Technology in Fields</h3>
+                  <p>How drones are helping farmers monitor crops and fight pests. #DroneAgriculture</p>
+                </div>
+                <div className="explore-card">
+                  <h3>🌾 Trending Crop: Millets</h3>
+                  <p>Millets are gaining popularity for their resilience and nutrition. #MilletRevolution</p>
+                </div>
+              </div>
+            </div>
+          )}
+          {activeTab === 'notifications' && (
+            <div className="notifications-section" style={{ padding: 32 }}>
+              <h2>Notifications</h2>
+              <ul>
+                <li>Priya Agri Solutions liked your post.</li>
+                <li>AgriTech India followed you.</li>
+                <li>Organic Farming commented: "Great tips!"</li>
+                <li>Your poll received 10 new votes.</li>
+              </ul>
+            </div>
+          )}
+          {activeTab === 'bookmarks' && (
+            <div className="bookmarks-section" style={{ padding: 32 }}>
+              <h2>Bookmarked Posts</h2>
+              <div className="explore-card">No bookmarks yet. Save posts to see them here!</div>
+            </div>
+          )}
+          {activeTab === 'communities' && (
+            <div className="communities-section" style={{ padding: 32 }}>
+              <h2>Communities</h2>
+              <div className="explore-card">Join communities to connect with other farmers and agri-experts!</div>
+              <ul>
+                <li>#OrganicFarming</li>
+                <li>#WheatHarvest</li>
+                <li>#DroneAgriculture</li>
+                <li>#MarketUpdates</li>
+              </ul>
+            </div>
+          )}
+          {activeTab === 'profile' && (
+            <div className="profile-section" style={{ padding: 32 }}>
+              <h2>Your Profile</h2>
+              <div className="explore-card">
+                <strong>{currentUser.name}</strong> <span>@{currentUser.handle}</span>
+                <p>{currentUser.bio}</p>
+                <p>Location: {currentUser.location}</p>
+                <p>Followers: {currentUser.followers} | Following: {currentUser.following}</p>
+              </div>
+            </div>
+          )}
+          {activeTab === 'messages' && (
+            <div className="dm-section" style={{ display: 'flex', height: '70vh', background: 'var(--surface)', borderRadius: 12, overflow: 'hidden', margin: 24 }}>
+              <div style={{ width: 220, borderRight: '1px solid var(--border)', background: 'var(--background)', padding: 12 }}>
+                <h3 style={{ margin: '8px 0 12px 0', color: 'var(--primary-color)' }}>Chats</h3>
+                {fakeUsers.map(u => (
+                  <div
+                    key={u.id}
+                    style={{ display: 'flex', alignItems: 'center', gap: 10, padding: 8, borderRadius: 8, cursor: 'pointer', background: activeChat?.id === u.id ? 'var(--surface)' : 'none', fontWeight: activeChat?.id === u.id ? 600 : 400 }}
+                    onClick={() => setActiveChat(u)}
+                  >
+                    <img src={u.avatar} alt={u.name} style={{ width: 36, height: 36, borderRadius: '50%' }} />
+                    <div>
+                      <div>{u.name}</div>
+                      <div style={{ fontSize: 13, color: 'var(--text-muted)' }}>@{u.handle}</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              <div style={{ flex: 1, display: 'flex', flexDirection: 'column', background: 'var(--surface)' }}>
+                {activeChat ? (
+                  <>
+                    <div style={{ padding: 12, borderBottom: '1px solid var(--border)', display: 'flex', alignItems: 'center', gap: 10 }}>
+                      <img src={activeChat.avatar} alt={activeChat.name} style={{ width: 36, height: 36, borderRadius: '50%' }} />
+                      <div>
+                        <div style={{ fontWeight: 600 }}>{activeChat.name}</div>
+                        <div style={{ fontSize: 13, color: 'var(--text-muted)' }}>@{activeChat.handle}</div>
+                      </div>
+                    </div>
+                    <div style={{ flex: 1, overflowY: 'auto', padding: 16, display: 'flex', flexDirection: 'column', gap: 10 }}>
+                      {(dmMessages[activeChat.id] || []).map((msg, i) => (
+                        <div key={i} style={{ alignSelf: msg.from === 'me' ? 'flex-end' : 'flex-start', background: msg.from === 'me' ? 'var(--primary-color)' : 'var(--surface)', color: msg.from === 'me' ? '#fff' : 'var(--text-primary)', borderRadius: 12, padding: '7px 14px', maxWidth: 260 }}>
+                          {msg.text}
+                        </div>
+                      ))}
+                    </div>
+                    <div style={{ display: 'flex', gap: 8, padding: 12, borderTop: '1px solid var(--border)' }}>
+                      <input
+                        type="text"
+                        value={dmInput}
+                        onChange={e => setDmInput(e.target.value)}
+                        onKeyDown={e => { if (e.key === 'Enter') handleSendDm(); }}
+                        placeholder={`Message @${activeChat.handle}`}
+                        style={{ flex: 1, borderRadius: 8, border: '1px solid var(--border)', padding: 8, fontSize: 15 }}
+                      />
+                      <button onClick={handleSendDm} className="submit-btn" style={{ padding: '6px 18px', fontSize: 15 }}>Send</button>
+                    </div>
+                  </>
+                ) : (
+                  <div style={{ color: 'var(--text-muted)', textAlign: 'center', marginTop: 60 }}>Select a chat to start messaging</div>
+                )}
+              </div>
+            </div>
+          )}
         </div>
-        {/* Right Sidebar: What's happening & Who to follow */}
-        <div className="right-sidebar" style={{ width: 340, background: 'var(--background)', padding: 24, borderLeft: '1px solid var(--border)', minHeight: '100vh' }}>
-          <div style={{ marginBottom: 32 }}>
-            <input type="text" placeholder="Search AgriSocio" style={{ width: '100%', padding: 10, borderRadius: 8, border: '1px solid var(--border)', background: 'var(--surface)', color: 'var(--text-primary)' }} />
-          </div>
-          <div className="trending-section" style={{ marginBottom: 32 }}>
-            <h3 style={{ fontWeight: 700, marginBottom: 12 }}>What's happening</h3>
-            {trendingTopics.map((topic, i) => (
-              <div key={i} style={{ marginBottom: 14 }}>
-                <div style={{ color: 'var(--text-muted)', fontSize: 13 }}>Trending in Agriculture</div>
-                <div style={{ fontWeight: 600 }}>{topic.tag}</div>
-                <div style={{ color: 'var(--text-muted)', fontSize: 13 }}>{topic.posts} Posts</div>
+      </div>
+      {/* Right Sidebar */}
+      <div className="right-sidebar" style={{ width: 340, background: 'var(--background)', padding: 24, borderLeft: '1px solid var(--border)', minHeight: '100vh' }}>
+        <div style={{ marginBottom: 32 }}>
+          <input type="text" placeholder="Search AgriSocio" style={{ width: '100%', padding: 10, borderRadius: 8, border: '1px solid var(--border)', background: 'var(--surface)', color: 'var(--text-primary)' }} />
+        </div>
+        <div className="trending-section" style={{ marginBottom: 32 }}>
+          <h3 style={{ fontWeight: 700, marginBottom: 12 }}>What's happening</h3>
+          {trendingTopics.map((topic, i) => (
+            <div key={i} style={{ marginBottom: 14 }}>
+              <div style={{ color: 'var(--text-muted)', fontSize: 13 }}>Trending in Agriculture</div>
+              <div style={{ fontWeight: 600 }}>{topic.tag}</div>
+              <div style={{ color: 'var(--text-muted)', fontSize: 13 }}>{topic.posts} Posts</div>
+            </div>
+          ))}
+        </div>
+        <div className="who-to-follow-section">
+          <h3 style={{ fontWeight: 700, marginBottom: 12 }}>Who to follow</h3>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+              <div style={{ width: 38, height: 38, borderRadius: '50%', background: 'var(--surface)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 700, fontSize: 18 }}>A</div>
+              <div style={{ flex: 1 }}>
+                <div style={{ fontWeight: 600 }}>AgriTech India <span style={{ color: '#16a34a', fontSize: 16 }}>✓</span></div>
+                <div style={{ color: 'var(--text-muted)', fontSize: 13 }}>@agritech_in</div>
               </div>
-            ))}
-          </div>
-          <div className="who-to-follow-section">
-            <h3 style={{ fontWeight: 700, marginBottom: 12 }}>Who to follow</h3>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-                <div style={{ width: 38, height: 38, borderRadius: '50%', background: 'var(--surface)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 700, fontSize: 18 }}>A</div>
-                <div style={{ flex: 1 }}>
-                  <div style={{ fontWeight: 600 }}>AgriTech India <span style={{ color: '#16a34a', fontSize: 16 }}>✓</span></div>
-                  <div style={{ color: 'var(--text-muted)', fontSize: 13 }}>@agritech_in</div>
-                </div>
-                <button style={{ background: '#16a34a', color: '#fff', border: 'none', borderRadius: 20, padding: '6px 18px', fontWeight: 600, cursor: 'pointer' }}>Follow</button>
+              <button style={{ background: '#16a34a', color: '#fff', border: 'none', borderRadius: 20, padding: '6px 18px', fontWeight: 600, cursor: 'pointer' }}>Follow</button>
+            </div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+              <div style={{ width: 38, height: 38, borderRadius: '50%', background: 'var(--surface)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 700, fontSize: 18 }}>O</div>
+              <div style={{ flex: 1 }}>
+                <div style={{ fontWeight: 600 }}>Organic Farming</div>
+                <div style={{ color: 'var(--text-muted)', fontSize: 13 }}>@organic_farms</div>
               </div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-                <div style={{ width: 38, height: 38, borderRadius: '50%', background: 'var(--surface)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 700, fontSize: 18 }}>O</div>
-                <div style={{ flex: 1 }}>
-                  <div style={{ fontWeight: 600 }}>Organic Farming</div>
-                  <div style={{ color: 'var(--text-muted)', fontSize: 13 }}>@organic_farms</div>
-                </div>
-                <button style={{ background: '#16a34a', color: '#fff', border: 'none', borderRadius: 20, padding: '6px 18px', fontWeight: 600, cursor: 'pointer' }}>Follow</button>
+              <button style={{ background: '#16a34a', color: '#fff', border: 'none', borderRadius: 20, padding: '6px 18px', fontWeight: 600, cursor: 'pointer' }}>Follow</button>
+            </div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+              <div style={{ width: 38, height: 38, borderRadius: '50%', background: 'var(--surface)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 700, fontSize: 18 }}>F</div>
+              <div style={{ flex: 1 }}>
+                <div style={{ fontWeight: 600 }}>Farm Equipment</div>
+                <div style={{ color: 'var(--text-muted)', fontSize: 13 }}>@farm_equip</div>
               </div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-                <div style={{ width: 38, height: 38, borderRadius: '50%', background: 'var(--surface)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 700, fontSize: 18 }}>F</div>
-                <div style={{ flex: 1 }}>
-                  <div style={{ fontWeight: 600 }}>Farm Equipment</div>
-                  <div style={{ color: 'var(--text-muted)', fontSize: 13 }}>@farm_equip</div>
-                </div>
-                <button style={{ background: '#16a34a', color: '#fff', border: 'none', borderRadius: 20, padding: '6px 18px', fontWeight: 600, cursor: 'pointer' }}>Follow</button>
-              </div>
+              <button style={{ background: '#16a34a', color: '#fff', border: 'none', borderRadius: 20, padding: '6px 18px', fontWeight: 600, cursor: 'pointer' }}>Follow</button>
             </div>
           </div>
         </div>
