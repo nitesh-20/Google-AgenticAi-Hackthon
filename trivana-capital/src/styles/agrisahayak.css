@@ -1,0 +1,239 @@
+.agri-sahayak-section {
+    background: #15181b;
+    min-height: 100vh;
+    padding: 32px 0;
+    font-family: 'Segoe UI', Arial, sans-serif;
+  }
+  
+  .as-title {
+    color: #e8eaed;
+    font-size: 2.15rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 30px;
+    letter-spacing: 0.5px;
+  }
+  
+  .as-row {
+    display: flex;
+    gap: 24px;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  /* CARD STYLES */
+  .as-card {
+    background: #1c1f24;
+    border-radius: 14px;
+    box-shadow: 0 2px 16px rgba(27,30,35,0.32);
+    padding: 22px 26px;
+    min-width: 270px;
+    max-width: 350px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+    transition: transform 0.15s;
+  }
+  
+  .as-card:hover {
+    transform: translateY(-3px) scale(1.015);
+    box-shadow: 0 6px 30px rgba(17,24,39,0.40);
+  }
+  
+  .as-card-title {
+    color: #6bee77;
+    font-size: 1.16rem;
+    font-weight: 600;
+    margin-bottom: 14px;
+    letter-spacing: 0.5px;
+  }
+  
+  .as-list, .as-list-sm {
+    color: #e0e3e7;
+    padding-left: 18px;
+    margin-bottom: 14px;
+  }
+  .as-list li, .as-list-sm li {
+    font-size: 1rem;
+    margin-bottom: 6px;
+  }
+  .as-list-sm {
+    padding-left: 12px;
+  }
+  
+  .as-soil-records label {
+    font-weight: 600;
+    color: #90f5ba;
+    font-size: 0.96rem;
+  }
+  .as-soil-records {
+    color: #f2fff6;
+    margin-top: 7px;
+    font-size: 0.97rem;
+  }
+  
+  .as-weather-main {
+    color: #7cc7f6;
+    font-size: 1.06rem;
+    font-weight: 500;
+  }
+  .as-weather-forecast {
+    color: #9baac2;
+    font-size: 0.95rem;
+    margin: 5px 0 10px 0;
+  }
+  
+  .as-market-row {
+    background: #232621;
+    border-radius: 7px;
+    padding: 10px;
+    font-size: 1rem;
+    color: #54e38e;
+    margin-top: 8px;
+  }
+  
+  /* Colored Borders for Card Types */
+  .agri-sahayak-section .as-card.soil     { border-left: 5px solid #25d366; }
+  .agri-sahayak-section .as-card.weather  { border-left: 5px solid #17a2b8; }
+  .agri-sahayak-section .as-card.planner  { border-left: 5px solid #36af7b; }
+  .agri-sahayak-section .as-card.pest     { border-left: 5px solid #fa817f; }
+  .agri-sahayak-section .as-card.market   { border-left: 5px solid #ffd86a; }
+  .agri-sahayak-section .as-card.reminder { border-left: 5px solid #35bdca; }
+  .agri-sahayak-section .as-card.ask      { border-left: 5px solid #bc67ff; }
+  
+  /* BUTTONS */
+  .as-btn-sm, .as-btn-icon, .as-btn {
+    background: linear-gradient(90deg,#25d366,#297f4a 95%);
+    color: #181b1f;
+    border: none;
+    border-radius: 6px;
+    padding: 6px 14px;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 1rem;
+    margin-right: 8px;
+    transition: background 0.2s, color 0.15s, box-shadow 0.16s;
+    box-shadow: 0 2px 8px rgba(53,253,130,0.03);
+  }
+  
+  .as-btn-sm:hover, .as-btn-icon:hover {
+    background: linear-gradient(90deg,#31ff7d,#36af7b 95%);
+    color: #161718;
+  }
+  
+  .as-btn-icon {
+    font-size: 1.13rem;
+    padding: 3px 8px;
+    margin-left: 3px;
+    vertical-align: middle;
+  }
+  
+  .as-reminder-due {
+    color: #fcd663;
+    font-weight: 600;
+  }
+  
+  .as-ans {
+    color: #8ad9fc;
+    font-style: italic;
+  }
+  
+  /* MODAL */
+  .as-modal-overlay {
+    position: fixed;
+    top:0; left:0; right:0; bottom:0;
+    background: rgba(5,15,30,0.55);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+  }
+  
+  .as-modal {
+    background: #23262b;
+    border-radius: 12px;
+    min-width: 340px;
+    max-width: 98vw;
+    box-shadow: 0 10px 60px -8px #1d222d;
+    padding: 28px 28px 19px 26px;
+    animation: modalIn 0.17s cubic-bezier(0.4,0,0.2,1);
+  }
+  
+  @keyframes modalIn {
+    from { transform: scale(0.92); opacity: 0.6; }
+    to   { transform: scale(1); opacity: 1; }
+  }
+  
+  .as-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 600;
+    color: #79ffad;
+    font-size: 1.15rem;
+    margin-bottom: 19px;
+  }
+  
+  .as-modal-x {
+    background: none;
+    border: none;
+    font-size: 1.44rem;
+    color: #bfbfbf;
+    cursor: pointer;
+    font-weight: bold;
+  }
+  
+  /* FORM ELEMENTS */
+  .as-form-group {
+    margin-bottom: 15px;
+  }
+  .as-form-group label {
+    margin-bottom: 5px;
+    color: #97c7ac;
+    font-size: 1rem;
+  }
+  .as-form-group input, .as-form-group select {
+    background: #191c21;
+    color: #f6ffe6;
+    border: 1px solid #383b42;
+    border-radius: 6px;
+    padding: 8px 11px;
+    font-size: 1rem;
+    margin-top: 2px;
+    box-shadow: 0 1px 2px #060a12 inset;
+    transition: border 0.16s, background 0.17s;
+  }
+  .as-form-group input:focus, .as-form-group select:focus {
+    border-color: #25d366;
+    background: #242932;
+    outline: none;
+  }
+  
+  .as-modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 11px;
+    margin-top: 12px;
+  }
+  
+  .as-btn.as-primary {
+    background: linear-gradient(90deg,#25d366,#31ff7d 85%);
+    color: #191c21;
+    font-weight: 700;
+  }
+  .as-btn.as-primary:hover {
+    background: linear-gradient(90deg,#4ae699,#29d466 95%);
+    color: #262921;
+  }
+  .as-btn.as-secondary {
+    background: #2d2f37;
+    color: #86bbb2;
+    border: 1px solid #353839;
+  }
+  .as-btn.as-secondary:hover {
+    background: #323437;
+    color: #d8ffe7;
+  }
+  

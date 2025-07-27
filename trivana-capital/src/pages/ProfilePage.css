@@ -1,0 +1,115 @@
+/* Full page background for profile */
+.profile-bg {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #10151b 60%, #16a34a 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.profile-card {
+  background: #18181b;
+  border-radius: 18px;
+  box-shadow: 0 4px 32px 0 rgb(0 0 0 / 0.18);
+  padding: 38px 32px 28px 32px;
+  min-width: 340px;
+  max-width: 420px;
+  width: 100%;
+}
+
+.profile-logout-btn {
+  background: #23272f;
+  color: #f87171;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 8px 18px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-left: 10px;
+  transition: background 0.2s, color 0.2s;
+}
+.profile-logout-btn:hover {
+  background: #18181b;
+  color: #fff;
+}
+.profile-page {
+  max-width: 420px;
+  margin: 40px auto;
+  background: #10151b;
+  border-radius: 16px;
+  box-shadow: 0 2px 8px 0 rgb(0 0 0 / 0.10);
+  padding: 32px 24px 24px 24px;
+  color: var(--text-primary);
+}
+.profile-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 18px;
+}
+.profile-avatar-lg {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  object-fit: cover;
+  background: #18181b;
+  margin-bottom: 8px;
+}
+.profile-avatar-input {
+  width: 100%;
+  margin-top: 6px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: #18181b;
+  color: var(--text-primary);
+  padding: 6px 10px;
+}
+.profile-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+.profile-input {
+  width: 100%;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: #18181b;
+  color: var(--text-primary);
+  padding: 8px 10px;
+  font-size: 16px;
+}
+.profile-handle {
+  color: var(--text-muted);
+  font-size: 16px;
+  font-weight: 400;
+}
+.profile-location {
+  color: var(--text-muted);
+  font-size: 15px;
+}
+.profile-bio {
+  color: var(--text-primary);
+  font-size: 15px;
+  margin-top: 4px;
+}
+.profile-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+.profile-edit-btn, .profile-save-btn {
+  background: var(--primary-color);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 22px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.profile-edit-btn:hover, .profile-save-btn:hover {
+  background: var(--primary-hover);
+}

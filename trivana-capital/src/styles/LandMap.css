@@ -1,0 +1,83 @@
+.landmap-modal {
+    position: fixed;
+    top: 0;
+    left: 200px; /* Sidebar width: adjust if your sidebar changes */
+    width: calc(100vw - 200px);
+    height: 100vh;
+    background: rgba(40, 60, 85, 0.23);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+  }
+  .landmap-content {
+    background: #fff;
+    border-radius: 14px;
+    padding: 28px 36px 18px 36px;
+    box-shadow: 0 6px 32px #4f7dba32;
+    min-width: 340px;
+    max-width: 90vw;
+    max-height: 90vh;
+    overflow-y: auto;
+    text-align: center;
+    position: relative;
+    animation: landmapFadeIn 0.35s;
+  }
+  @keyframes landmapFadeIn {
+    from { opacity: 0; transform: translateY(16px);}
+    to   { opacity: 1; transform: none;}
+  }
+  .landmap-svg {
+    margin: 14px auto 12px;
+    border: 2px solid #bedcff;
+    border-radius: 6px;
+    background: #eef6ff;
+    max-width: 100%;
+    height: auto;
+  }
+  .landmap-info-table {
+    margin-top: 6px;
+  }
+  .landmap-info-table table {
+    width: 80%;
+    margin: 0 auto 7px auto;
+    border-collapse: collapse;
+  }
+  .landmap-info-table td {
+    padding: 5px 11px;
+    border-bottom: 1px solid #e0e8ff;
+    font-size: 1.08em;
+  }
+  .landmap-info-table tr:last-child td { border-bottom: none; }
+  .landmap-advisory {
+    background: #e3f2fd;
+    color: #1d2a3e;
+    padding: 7px 13px;
+    border-radius: 6px;
+    margin: 10px auto 6px auto;
+    width: fit-content;
+    font-size: 1em;
+    letter-spacing: 0.1px;
+  }
+  .landmap-desc {
+    color: #39506b;
+    font-size: 1.01em;
+    padding: 5px;
+    margin-bottom: 5px;
+  }
+  .landmap-close-btn {
+    background: #1676d1;
+    color: #fff;
+    padding: 8px 18px;
+    border-radius: 4px;
+    border: none;
+    margin-top: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.13s;
+    font-size: 1em;
+  }
+  .landmap-close-btn:hover {
+    background: #155fa0;
+  }
+  

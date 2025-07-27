@@ -1,0 +1,17 @@
+*{
+  margin: 0;
+  padding: 0;
+}
+.app-layout {
+    display: flex;
+    height: 100vh;
+    font-family: Arial, sans-serif;
+  }
+  
+  .page-content {
+    margin-left: 60px;
+    padding: 20px;
+    flex: 1;
+    background: #f8fafc;
+  }
+  
