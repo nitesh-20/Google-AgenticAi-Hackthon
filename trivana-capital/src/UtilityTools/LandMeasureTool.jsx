@@ -20,7 +20,7 @@ const toast = {
 };
 
 
-export default LandMeasureTool;
+
 
 export const LandMeasureTool = () => {
   const [measurements, setMeasurements] = useState([]);
@@ -503,3 +503,4 @@ export const LandMeasureTool = () => {
     </div>
   );
 };
+export default LandMeasureTool;
