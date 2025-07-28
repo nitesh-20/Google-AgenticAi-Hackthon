@@ -24,7 +24,7 @@ const SidebarIcons = ({ user, onLogout }) => {
 
   return (
     <aside className="sidebar">
-      <div className="logo-placeholder">Agri Sahayak</div>
+      <div className="logo-placeholder">AgriAI</div>
 
       <nav className="nav-links">
         {navItems.map((item, index) => (
