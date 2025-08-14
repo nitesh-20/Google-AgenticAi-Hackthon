@@ -39,9 +39,9 @@
   }
 }
 .market-container {
-  background: #000;
+  background: #18181b;
   color: #f3f6fa;
-  padding: 32px 0 32px 0;
+  padding: 0;
   min-height: 100vh;
   display: flex;
   flex-direction: column;

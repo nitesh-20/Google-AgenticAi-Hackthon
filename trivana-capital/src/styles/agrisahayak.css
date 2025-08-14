@@ -1,7 +1,8 @@
 .agri-sahayak-section {
-    background: #15181b;
+    background: #18181b;
     min-height: 100vh;
     padding: 0;
+    margin: 0;
     font-family: 'Segoe UI', Arial, sans-serif;
   }
   
@@ -17,14 +18,14 @@
   .as-row {
     display: flex;
     gap: 0;
-    margin-bottom: 0;
+    margin: 0;
     flex-wrap: wrap;
     justify-content: center;
   }
   
   /* CARD STYLES */
   .as-card {
-    background: #1c1f24;
+    background: #232621;
     border-radius: 14px;
     box-shadow: 0 2px 16px rgba(27,30,35,0.32);
     padding: 0;
@@ -33,7 +34,7 @@
     flex: 1;
     display: flex;
     flex-direction: column;
-    margin-bottom: 0;
+    margin: 0;
     transition: transform 0.15s;
   }
   
