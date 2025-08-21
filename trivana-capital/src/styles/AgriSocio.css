@@ -174,22 +174,23 @@
 /* AgriSocio Styles */
 
 :root {
-  --primary-color: #16a34a;
-  --primary-hover: #15803d;
+  /* map local tokens to global theme variables */
+  --primary-color: var(--primary);
+  --primary-hover: color-mix(in srgb, var(--primary) 85%, black 15%);
   --secondary-color: #22c55e;
-  --background: #000000;
-  --surface: #000000;
-  --border: #1d1e1e;
-  --text-primary: #dbdbdb;
-  --text-secondary: #64748b;
-  --text-muted: #94a3b8;
+  --background: var(--bg);
+  --surface: var(--surface);
+  --border: rgba(15,23,42,0.06);
+  --text-primary: var(--text);
+  --text-secondary: var(--muted);
+  --text-muted: var(--muted);
   --like-color: #dc2626;
-  --repost-color: #16a34a;
+  --repost-color: var(--primary);
   --reply-color: #2563eb;
   --bookmark-color: #7c3aed;
   --verified-color: #2563eb;
-  --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
-  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --shadow: 0 6px 24px rgba(2,6,23,0.06);
+  --shadow-lg: 0 12px 40px rgba(2,6,23,0.08);
 }
 
 [data-theme="dark"] {
@@ -209,33 +210,32 @@
 
 body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
-  background-color: #18181b;
+  background-color: var(--bg);
   color: var(--text-primary);
   line-height: 1.5;
   overflow-x: hidden;
 }
 
 .agrisocio-container {
-  min-height: 100vh;
-  background: #18181b;
+  min-height: auto;
+  background: transparent;
   box-shadow: none;
   padding: 0;
   margin: 0;
 }
 
-/* removed stray gap: 0; */
 .main-layout {
-  width: 100vw;
+  width: 100%;
   min-width: 0;
   display: flex;
   flex-direction: row;
   gap: 0;
-  background: #18181b;
+  background: transparent;
   box-shadow: none;
   margin: 0;
-  max-width: 100vw;
+  max-width: 100%;
   align-items: stretch;
-  height: 100vh;
+  height: auto;
   overflow-x: hidden;
   justify-content: stretch;
   position: relative;
@@ -243,14 +243,14 @@ body {
 
 /* Left Sidebar */
 .left-sidebar {
-width: 260px;
-position: relative;
-height: 100vh;
-border-right: 1px solid var(--border);
-padding: 0;
-display: flex;
-flex-direction: column;
-background: var(--background, #18181b);
+  width: 260px;
+  position: relative;
+  height: auto;
+  border-right: 1px solid var(--border);
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  background: var(--surface);
 }
 
 
@@ -384,8 +384,8 @@ background: var(--background, #18181b);
 .main-content {
   flex: 1 1 0;
   margin-left: 0;
-  background: #18181b;
-  min-height: 100vh;
+  background: transparent;
+  min-height: auto;
   box-shadow: none;
   padding: 0;
   margin: 0;
