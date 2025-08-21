@@ -82,9 +82,8 @@ const MandiData = () => {
         )}
       </div>
 
-      <div className="mandi-card">
-        <div className="mandi-table-container">
-         <table className="mandi-table">
+      <div className="mandi-table-container">
+        <table className="mandi-table">
           <thead>
             <tr>
               <th>State</th>
@@ -120,10 +119,9 @@ const MandiData = () => {
             )}
           </tbody>
         </table>
-        </div>
       </div>
-     </div>
-   );
- };
+    </div>
+  );
+};
 
- export default MandiData;
+export default MandiData;

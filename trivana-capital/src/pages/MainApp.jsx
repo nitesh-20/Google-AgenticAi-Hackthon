@@ -41,7 +41,13 @@ export default function MainApp({ user: authUser }) {
       {/* Main content area adjusted for top navbar */}
       <main className="main-area">
         <div className="container-wide">
-          {/* Page-specific headers moved into each page (e.g. AgroAI shows welcome) */}
+          <div className="page-header">
+            <div>
+              <h1 className="page-title">Welcome, {user?.displayName || user.name}</h1>
+              <div className="page-subtitle">Smart farming dashboard</div>
+            </div>
+            <div></div>
+          </div>
 
           <Routes>
             <Route path="/" element={<AgroAI />} />

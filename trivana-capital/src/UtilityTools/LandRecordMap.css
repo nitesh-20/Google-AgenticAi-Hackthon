@@ -1,22 +1,24 @@
 /* LandRecordMap styles */
 .landrecord-root {
-  background: var(--surface);
-  border-radius: 12px;
-  box-shadow: 0 8px 28px rgba(2,6,23,0.04);
-  padding: 20px;
-  max-width: 1000px;
-  margin: 20px auto;
-  color: var(--text);
+  background: linear-gradient(120deg,#23243a 60%,#1a1a2e 100%);
+  border-radius: 1.5em;
+  box-shadow: 0 4px 24px #0006;
+  padding: 38px 24px 32px 24px;
+  max-width: 600px;
+  margin: 40px auto;
+  color: #fff;
 }
 .landrecord-title {
-  color: var(--primary);
-  font-size: 1.4rem;
-  margin-bottom: 10px;
+  font-size: 2.1rem;
+  color: #ffd82a;
+  font-weight: 700;
+  margin-bottom: 18px;
+  letter-spacing: 1px;
 }
 .landrecord-form {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 16px;
 }
 .landrecord-row {
   display: flex;
@@ -24,38 +26,48 @@
 }
 .landrecord-label {
   font-weight: 600;
-  color: var(--text);
+  color: #ffd82a;
 }
 .landrecord-input, .landrecord-select {
-  background: var(--surface);
-  color: var(--text);
-  border: 1px solid rgba(15,23,42,0.06);
-  padding: 10px 12px;
-  border-radius: 8px;
+  background: #252832;
+  color: #eaf4fa;
+  font-size: 1.11em;
+  border: none;
+  border-radius: 7px;
+  padding: 11px 20px;
+  outline: none;
 }
 .landrecord-btn {
-  background: var(--primary);
-  color: #fff;
-  padding: 10px 12px;
+  background: linear-gradient(120deg,#5eead4,#38bdf8);
+  color: #181723;
+  font-weight: 700;
+  padding: 10px 23px;
   border-radius: 8px;
   border: none;
+  margin-left: 8px;
+  transition: all 0.12s;
+  cursor: pointer;
+}
+.landrecord-btn:disabled { opacity: 0.6 }
+.landrecord-btn:hover:enabled {
+  filter: brightness(1.18);
+  box-shadow: 0 3px 12px #5eead450;
+}
+.landrecord-loading, .landrecord-error {
+  margin: 20px 38px;
+  font-size: 1.15em;
+  color: #f44;
 }
 .landrecord-card {
-  margin-top: 18px;
-  background: var(--surface);
-  border-radius: 10px;
-  padding: 12px;
-  box-shadow: 0 6px 18px rgba(2,6,23,0.04);
+  margin-top: 28px;
+  background: #23272f;
+  border-radius: 12px;
+  padding: 18px;
+  box-shadow: 0 2px 12px #0007;
 }
 .landrecord-map {
-  margin: 12px 0 0 0;
-  border-radius: 8px;
+  margin: 18px 0 0 0;
+  border-radius: 10px;
   overflow: hidden;
-}
-
-@media (max-width: 768px) {
-  .landrecord-root {
-    margin: 12px;
-    padding: 12px;
-  }
+  box-shadow: 0 2px 12px #0007;
 }
