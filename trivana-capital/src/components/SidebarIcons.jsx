@@ -23,10 +23,10 @@ const SidebarIcons = ({ user, onLogout }) => {
   ];
 
   return (
-    <aside className="sidebar">
-      <div className="logo-placeholder">AgriAI</div>
+    <aside className="sidebar" aria-label="Main navigation">
+      <div className="logo-placeholder" title="AgriAI">AgriAI</div>
 
-      <nav className="nav-links">
+      <nav className="nav-links" role="navigation">
         {navItems.map((item, index) => (
           <NavLink
             to={item.to}
@@ -34,6 +34,8 @@ const SidebarIcons = ({ user, onLogout }) => {
             className={({ isActive }) =>
               `nav-item ${isActive ? "active" : ""}`
             }
+            aria-label={item.text}
+            title={item.text}
           >
             {item.icon}
             <span className="nav-text">{item.text}</span>
@@ -46,8 +48,8 @@ const SidebarIcons = ({ user, onLogout }) => {
         <ProfileButton user={user} />
 
         {/* Logout button */}
-        <button className="nav-item" onClick={onLogout}>
-        
+        <button className="nav-item" onClick={onLogout} aria-label="Logout" title="Logout">
+          {/* keep span for hover label in expanded state */}
           <span className="nav-text">Logout</span>
         </button>
       </div>

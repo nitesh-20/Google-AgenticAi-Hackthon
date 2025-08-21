@@ -1,8 +1,119 @@
+/* src/index.css */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+:root {
+  /* Color palette - white professional theme */
+  --bg: #ffffff;
+  --surface: #f8fafc;
+  --muted: #6b7280;
+  --text: #0f172a;
+  --primary: #0fb5a3; /* teal accent */
+  --accent: #fb923c; /* warm CTA */
+  --shadow: rgba(15, 23, 42, 0.06);
+  --radius: 10px;
+  --sidebar-width: 0px; /* no fixed left sidebar by default */
+}
+
+* { box-sizing: border-box; }
+html, body, #root { height: 100%; }
+
 body {
-    background: #18181b !important;
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    color: #e0e0e0;
-  }
-  
+  background: var(--bg);
+  color: var(--text);
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a { color: inherit; text-decoration: none; }
+
+button { font-family: inherit; }
+
+/* Main app content wrapper used by pages */
+.app-content {
+  padding: 1.5rem;
+  min-height: 100vh;
+  background: linear-gradient(180deg, var(--bg) 0%, var(--surface) 100%);
+}
+
+/* Main content adjusted for top navbar (no left sidebar) */
+.main-area {
+  margin-left: 0;
+  padding: 1.5rem 1.5rem 2.5rem 1.5rem;
+  min-height: 100vh;
+  background: linear-gradient(180deg, var(--bg) 0%, var(--surface) 100%);
+}
+
+/* Utility helpers */
+.container-wide { max-width: 1180px; margin: 0 auto; }
+.flex { display: flex; }
+.center { display:flex; align-items:center; justify-content:center; }
+.card {
+  background: #fff;
+  border-radius: var(--radius);
+  box-shadow: 0 6px 18px var(--shadow);
+  padding: 1rem;
+  color: var(--text);
+}
+
+h1, h2, h3, h4 { color: var(--text); margin: 0 0 0.5rem 0; }
+
+/* Slightly nicer headings for dashboard */
+.page-header { display:flex; align-items:center; justify-content:space-between; gap:1rem; margin-bottom:1rem; }
+.page-title { font-size:1.25rem; font-weight:700; color:var(--text); }
+.page-subtitle { color:var(--muted); font-size:0.95rem; }
+
+/* Small accessible focus outline */
+:focus { outline: 3px solid rgba(15,181,163,0.12); outline-offset: 2px; }
+
+/* ---------------------
+   Global overrides for legacy dark styles
+   Ensures pages using old dark CSS become visible under the new light theme
+   --------------------- */
+
+/* Force main containers to use light background */
+body, .app-layout, .landing-container, .login-container, .signup-page, .agrisocio-container, .page-content, .profile-bg {
+  background: linear-gradient(180deg, var(--bg) 0%, var(--surface) 100%) !important;
+  color: var(--text) !important;
+}
+
+/* Make cards and panels light */
+.card, .profile-card, .post-img, .post-video, .comments-section, .comment-item, .reply-item, .agrisocio-card {
+  background: var(--surface) !important;
+  color: var(--text) !important;
+  border-color: #eef2f7 !important;
+  box-shadow: 0 6px 20px rgba(15,23,42,0.04) !important;
+}
+
+/* Forms / inputs */
+input, textarea, select, .login-box, .signup-box {
+  background: var(--surface) !important;
+  color: var(--text) !important;
+  border: 1px solid #eef2f7 !important;
+}
+
+/* Buttons */
+button, .login-btn, .profile-edit-btn, .profile-save-btn {
+  background: var(--primary) !important;
+  color: #fff !important;
+  border: none !important;
+}
+
+/* Sidebar adjustments (ensure legacy pages don't force left margin) */
+.main-area, .page-content { margin-left: 0 !important; }
+
+/* Ensure iframes and images are visible */
+iframe, img { background: transparent; }
+
+/* Accessibility: ensure contrast on text-heavy components */
+h1,h2,h3,h4,p,span,button,label {
+  color: var(--text) !important;
+}
+
+/* Small screens: reduce sidebar offset */
+@media (max-width: 720px) {
+  :root { --sidebar-width: 64px; }
+  .main-area, .page-content { margin-left: var(--sidebar-width) !important; padding: 1rem !important; }
+}

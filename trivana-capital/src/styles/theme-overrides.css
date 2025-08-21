@@ -1,0 +1,185 @@
+/* src/styles/theme-overrides.css
+   Central overrides to convert legacy dark styles to the new white/green theme.
+   This file intentionally targets common class names and hard-coded dark colors used
+   across the project and maps them to CSS variables defined in src/index.css.
+*/
+
+/* Generic containers */
+.dashboard-root,
+.landing-container,
+.login-container,
+.signup-page,
+.agrisocio-container,
+.chat-wrapper,
+.page-content,
+.profile-bg {
+  background: linear-gradient(180deg, var(--bg) 0%, var(--surface) 100%) !important;
+  color: var(--text) !important;
+}
+
+/* Panels/cards/sections */
+.section,
+.card,
+.profile-card,
+.agrisocio-card,
+.summary-card,
+.modal,
+.login-box,
+.signup-box {
+  background: #fff !important;
+  color: var(--text) !important;
+  border: 1px solid #eef2f7 !important;
+  box-shadow: 0 8px 24px rgba(15,23,42,0.06) !important;
+}
+
+/* Tables and lists */
+.data-table th,
+.data-table td,
+.table-wrap,
+.comments-section,
+.comment-item,
+.reply-item {
+  background: transparent !important;
+  color: var(--text) !important;
+  border-color: #eef2f7 !important;
+}
+
+/* Inputs and forms */
+input,
+textarea,
+select,
+.form-group input,
+.form-group select,
+.profile-input,
+.profile-avatar-input {
+  background: var(--surface) !important;
+  color: var(--text) !important;
+  border: 1px solid #eef2f7 !important;
+}
+
+/* Buttons */
+button,
+.login-btn,
+.add-btn,
+.sidebar-add,
+.btn-primary,
+.btn-archive,
+.table-btn.edit {
+  background: var(--primary) !important;
+  color: #fff !important;
+  border: none !important;
+}
+
+.table-btn.del,
+.btn-danger { background: #ef4444 !important; color: #fff !important; }
+
+/* Sidebar fallback: make it light but keep layout */
+.sidebar {
+  background: var(--surface) !important;
+  color: var(--text) !important;
+  border-right: 1px solid #eef2f7 !important;
+}
+
+/* Chat-specific overrides */
+.chat-card,
+.chat-messages,
+.chat-input-box {
+  background: transparent !important;
+  color: var(--text) !important;
+}
+
+.bot-bubble { background: linear-gradient(180deg, var(--surface), #fff) !important; color: var(--text) !important; }
+.user-bubble { background: linear-gradient(180deg, var(--primary), rgba(15,181,163,0.95)) !important; color: #fff !important; }
+
+/* Images/iframes */
+img, iframe { background: transparent !important; }
+
+/* Accessibility */
+h1,h2,h3,h4,p,span,label,button { color: var(--text) !important; }
+
+/* Reduce strong dark scrollbars */
+::-webkit-scrollbar { background: transparent !important; }
+::-webkit-scrollbar-thumb { background: rgba(15,23,42,0.06) !important; }
+
+/* Small screens */
+@media (max-width: 720px) {
+  .sidebar { position: relative !important; width: 100% !important; }
+}
+
+/* Strong reset: remove legacy full-page panels that create separate dark boxes
+   Keep the main-area as the single main container for pages. */
+.agrisocio-container,
+.market-container,
+.dashboard-root,
+.chat-wrapper,
+.landing-container,
+.login-container,
+.signup-page,
+.main-layout,
+.app-layout,
+.page-content,
+.section,
+.profile-bg,
+.mandi-container,
+.agri-sahayak-section {
+  background: transparent !important;
+  min-height: auto !important;
+  height: auto !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  box-shadow: none !important;
+}
+
+/* Ensure main-area (single page container) provides page padding and background */
+.main-area {
+  background: linear-gradient(180deg, var(--bg) 0%, var(--surface) 100%) !important;
+  padding: 1.5rem !important;
+  min-height: calc(100vh - 72px) !important;
+}
+
+/* Tables/cards that used full-width dark backgrounds should use card wrappers now */
+.mandi-table, .data-table, .market-container, .chart-container {
+  background: transparent !important;
+}
+
+/* Remove any fixed full-height positioning that causes boxed look */
+[style*="min-height: 100vh"], [style*="height: 100vh"] {
+  min-height: auto !important;
+  height: auto !important;
+}
+
+/* Stronger reset for any top-level page panels that create a boxed look.
+   This targets immediate children inside the main app container so the page
+   becomes a single unified canvas. We exclude known card/section classes that
+   should remain as cards ('.card', '.mandi-card', '.chat-card', '.section'). */
+
+.main-area > .container-wide > *:not(.card):not(.mandi-card):not(.chat-card):not(.section):not(.landing-card) {
+  background: transparent !important;
+  min-height: auto !important;
+  height: auto !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+
+/* Also target direct children of container-wide in case markup differs */
+.container-wide > *:not(.card):not(.mandi-card):not(.chat-card):not(.section):not(.landing-card) {
+  background: transparent !important;
+  min-height: auto !important;
+  height: auto !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+
+/* Fallback: remove large dark backgrounds from common legacy classes */
+.agri-sahayak-section, .market-container, .agrisocio-main, .chat-hero, .hero-panel {
+  background: transparent !important;
+  min-height: auto !important;
+  box-shadow: none !important;
+}
+
+/* Encourage visible content by ensuring container-wide has padding */
+.main-area .container-wide { padding: 0.25rem 0 !important; }

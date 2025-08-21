@@ -154,18 +154,14 @@
 
 
 .ut-main {
-  background: linear-gradient(130deg, #252525 60%, #2c2b2c 100%);
-  min-height: 100vh;
-  box-sizing: border-box;
-  padding: 32px 20px 24px 20px;
+  background: transparent;
+  min-height: auto;
+  padding: 24px 12px !important;
 }
 
 .ut-grid-title {
-  font-size: 2.3rem;
-  color: #ffe04b;
-  margin: 0 0 32px 6px;
-  letter-spacing: 1px;
-  font-family: 'Segoe UI', Arial, sans-serif;
+  font-size: 2rem;
+  color: var(--text);
 }
 
 .ut-tool-grid {
@@ -177,14 +173,11 @@
 }
 
 .ut-tool-card {
-  background: linear-gradient(138deg, #151516 84%, #152241 100%);
-  border-radius: 1.3em;
-  padding: 40px 22px 30px 22px;
-  text-align: left;
-  cursor: pointer;
-  transition: box-shadow 0.15s, transform 0.14s;
-  box-shadow: 0 3px 18px #0004;
-  border: 1.5px solid #1a2436;
+  background: #fff;
+  border-radius: 14px;
+  padding: 20px;
+  box-shadow: 0 8px 28px rgba(15,23,42,0.06);
+  border:1px solid #eef2f7;
   outline: none;
   display: flex;
   flex-direction: column;
@@ -193,25 +186,25 @@
 }
 .ut-tool-card:focus,
 .ut-tool-card:hover {
-  box-shadow: 0 3px 32px #87fdea55;
-  border: 2.5px solid #ffd82a;
-  transform: translateY(-5px) scale(1.015);
+  box-shadow: 0 10px 30px rgba(15,181,163,0.06);
+  border-color: rgba(15,181,163,0.08);
+  transform: translateY(-4px);
 }
 
 .ut-tool-icon {
   font-size: 2.9rem;
   margin-bottom: 13px;
-  color: #64ffda;
+  color: var(--primary);
 }
 .ut-tool-name {
   font-size: 1.26rem;
   font-weight: 700;
-  color: #ffe04b;
+  color: var(--text);
   margin-bottom: 7px;
   letter-spacing: .8px;
 }
 .ut-tool-desc {
-  color: #c2e7fe;
+  color: var(--muted);
   opacity: 0.88;
   font-size: 1.06em;
   margin-top: 5px;
@@ -221,6 +214,11 @@
   margin: 0 auto;
   max-width: 940px;
   padding: 24px 0 0 0;
+}
+.ut-tool-detail-main {
+  background: transparent;
+  padding: 12px 0;
+  min-height: auto;
 }
 
 .ut-back-btn {
@@ -242,7 +240,7 @@
   color: #fffde6;
 }
 .ut-feature-head {
-  color: #ffe393;
+  color: var(--text);
   margin-top: 0;
   margin-bottom: 24px;
   font-size: 1.62rem;
@@ -261,5 +259,5 @@
 }
 
 /* Custom for scrollbars (dark) */
-::-webkit-scrollbar { width: 7px; background: #101114;}
-::-webkit-scrollbar-thumb { background: #23243a; border-radius: 4px; }
+::-webkit-scrollbar { width: 7px; background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(15,23,42,0.06); border-radius: 6px; }

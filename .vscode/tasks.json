@@ -1,0 +1,12 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "shell",
+			"label": "Run Backend (Python)",
+			"command": "python agri_ai_bot_with_key/main.py",
+			"group": "build",
+			"isBackground": false
+		}
+	]
+}

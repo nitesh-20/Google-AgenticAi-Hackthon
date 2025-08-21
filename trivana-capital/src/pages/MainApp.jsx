@@ -1,7 +1,7 @@
 // src/pages/MainApp.jsx
 import React from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
-import Sidebar from "../components/SidebarIcons";
+import Navbar from "../components/Navbar";
 import FarmerDashboard from "./FarmerDashboard";
 import TradingExchange from "./TradingExchange";
 import MarketCharts from "./MarketCharts";
@@ -14,7 +14,7 @@ import LandMap from "../UtilityTools/LandMap";
 import UtilityTools from "../UtilityTools";
 import ProfilePage from "./ProfilePage";
 
-export default function MainApp() {
+export default function MainApp({ user: authUser }) {
   const navigate = useNavigate();
 
   // Logout handler
@@ -27,30 +27,35 @@ export default function MainApp() {
     }
   };
 
-  // Dummy user for sidebar (replace with real auth user if available)
-  const user = {
-    name: "Profile",
-    avatar: "https://img.freepik.com/free-vector/blue-circle-with-white-user_78370-4707.jpg?semt=ais_hybrid&w=740",
-  };
+  const user =
+    authUser ?? {
+      name: "Profile",
+      avatar:
+        "https://img.freepik.com/free-vector/blue-circle-with-white-user_78370-4707.jpg?semt=ais_hybrid&w=740",
+    };
 
   return (
-    <div style={{ display: "flex", height: "100vh" }}>
-      {/* Sidebar always visible */}
-      <Sidebar user={user} onLogout={handleLogout} />
+    <>
+      <Navbar user={user} onLogout={handleLogout} />
 
-      <div style={{ flex: 1, padding: "1rem", overflowY: "auto" }}>
-        <Routes>
-          <Route path="/" element={<AgroAI />} />
-          <Route path="/exchange" element={<TradingExchange />} />
-          <Route path="/charts" element={<MarketCharts />} />
-          <Route path="/mandi" element={<MandiData />} />
-          <Route path="/order" element={<AgriSocio />} />
-          <Route path="/dashboard" element={<FarmerDashboard />} />
-          <Route path="/landmap" element={<LandMap />} />
-          <Route path="/tools/*" element={<UtilityTools />} />
-          <Route path="/profile" element={<ProfilePage />} />
-        </Routes>
-      </div>
-    </div>
+      {/* Main content area adjusted for top navbar */}
+      <main className="main-area">
+        <div className="container-wide">
+          {/* Page-specific headers moved into each page (e.g. AgroAI shows welcome) */}
+
+          <Routes>
+            <Route path="/" element={<AgroAI />} />
+            <Route path="/exchange" element={<TradingExchange />} />
+            <Route path="/charts" element={<MarketCharts />} />
+            <Route path="/mandi" element={<MandiData />} />
+            <Route path="/order" element={<AgriSocio />} />
+            <Route path="/dashboard" element={<FarmerDashboard />} />
+            <Route path="/landmap" element={<LandMap />} />
+            <Route path="/tools/*" element={<UtilityTools />} />
+            <Route path="/profile" element={<ProfilePage />} />
+          </Routes>
+        </div>
+      </main>
+    </>
   );
 }
