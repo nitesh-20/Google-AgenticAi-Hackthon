@@ -1,57 +1,44 @@
 /* WeatherForecast styles */
 .weather-root {
-  background: linear-gradient(120deg,#23243a 60%,#1a1a2e 100%);
-  border-radius: 1.5em;
-  box-shadow: 0 4px 24px #0006;
-  padding: 38px 24px 32px 24px;
-  max-width: 600px;
-  margin: 40px auto;
-  color: #fff;
+  background: var(--surface);
+  border-radius: 1rem;
+  box-shadow: 0 6px 24px rgba(2,6,23,0.06);
+  padding: 28px 20px;
+  max-width: 760px;
+  margin: 28px auto;
+  color: var(--text);
 }
 .weather-title {
-  font-size: 2.1rem;
-  color: #ffd82a;
-  font-weight: 700;
-  margin-bottom: 18px;
-  letter-spacing: 1px;
+  color: var(--primary);
+  font-size: 1.6rem;
 }
 .weather-form {
   display: flex;
   flex-direction: column;
-  gap: 16px;
-}
-.weather-row {
-  display: flex;
   gap: 12px;
 }
+.weather-row {
+  display:flex;
+  gap:12px;
+}
 .weather-label {
-  font-weight: 600;
-  color: #ffd82a;
+  font-weight: 700;
+  color: var(--text);
 }
 .weather-select {
-  background: #252832;
-  color: #eaf4fa;
-  font-size: 1.11em;
-  border: none;
-  border-radius: 7px;
-  padding: 11px 20px;
-  outline: none;
+  background: var(--surface);
+  color: var(--text);
+  font-size: 1rem;
+  border: 1px solid rgba(15,23,42,0.06);
+  border-radius: 8px;
+  padding: 10px 14px;
 }
 .weather-btn {
-  background: linear-gradient(120deg,#5eead4,#38bdf8);
-  color: #181723;
-  font-weight: 700;
-  padding: 10px 23px;
+  background: var(--primary);
+  color: #fff;
+  padding: 10px 16px;
   border-radius: 8px;
   border: none;
-  margin-left: 8px;
-  transition: all 0.12s;
-  cursor: pointer;
-}
-.weather-btn:disabled { opacity: 0.6 }
-.weather-btn:hover:enabled {
-  filter: brightness(1.18);
-  box-shadow: 0 3px 12px #5eead450;
 }
 .weather-loading, .weather-error {
   margin: 20px 38px;
@@ -59,15 +46,22 @@
   color: #f44;
 }
 .weather-card {
-  margin-top: 28px;
-  background: #23272f;
-  border-radius: 12px;
-  padding: 18px;
-  box-shadow: 0 2px 12px #0007;
+  margin-top: 18px;
+  background: var(--surface);
+  border-radius: 10px;
+  padding: 14px;
+  box-shadow: 0 4px 16px rgba(2,6,23,0.04);
 }
 .weather-map {
-  margin: 18px 0 0 0;
-  border-radius: 10px;
+  margin: 12px 0 0 0;
+  border-radius: 8px;
   overflow: hidden;
-  box-shadow: 0 2px 12px #0007;
+}
+
+@media (max-width: 768px) {
+  .weather-root {
+    margin: 18px 12px;
+    padding: 18px;
+    max-width: calc(100% - 24px);
+  }
 }
