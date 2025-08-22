@@ -274,13 +274,6 @@ const AgriSocio = () => {
   const [showComments, setShowComments] = useState({});
   const [shareMsg, setShareMsg] = useState('');
   const fileInputRef = useRef(null);
-  // (removed duplicate)
-
-  // Fake users for DM
-  // (removed duplicate)
-
-  // Send DM
-  // (removed duplicate)
   const videoInputRef = useRef(null);
 
   // Fake users for DM
@@ -398,571 +391,129 @@ const AgriSocio = () => {
       setNewVideo(null);
       setVideoPreview(null);
     }
-  };
+  }
 
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    if (file && file.type.startsWith('image/')) {
-      setNewImage(file);
-      setNewVideo(null);
-      setVideoPreview(null);
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setImagePreview(reader.result);
-      };
-      reader.readAsDataURL(file);
-    }
-  };
-
-  const handleVideoChange = (e) => {
-    const file = e.target.files[0];
-    if (file && file.type.startsWith('video/')) {
-      setNewVideo(file);
-      setNewImage(null);
-      setImagePreview(null);
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setVideoPreview(reader.result);
-      };
-      reader.readAsDataURL(file);
-    }
-  };
-
-  // Send DM
-  const handleSendDm = () => {
-    if (!dmInput.trim() || !activeChat) return;
-    setDmMessages(msgs => ({
-      ...msgs,
-      [activeChat.id]: [
-        ...(msgs[activeChat.id] || []),
-        { from: 'me', text: dmInput, time: new Date() }
-      ]
-    }));
-    setDmInput('');
-    // Fake reply
-    setTimeout(() => {
-      setDmMessages(msgs => ({
-        ...msgs,
-        [activeChat.id]: [
-          ...(msgs[activeChat.id] || []),
-          { from: 'them', text: 'Thanks for your message!', time: new Date() }
-        ]
-      }));
-    }, 1200);
-  };
-
-  const handlePollVote = (postId, optionIndex) => {
-    setPosts(posts.map(post => {
-      if (post.id === postId && post.poll) {
-        const updatedPoll = { ...post.poll };
-        if (updatedPoll.userVote !== undefined) {
-          updatedPoll.options[updatedPoll.userVote].votes--;
-          updatedPoll.totalVotes--;
-        }
-        updatedPoll.options[optionIndex].votes++;
-        updatedPoll.totalVotes++;
-        updatedPoll.userVote = optionIndex;
-        
-        return { ...post, poll: updatedPoll };
-      }
-      return post;
-    }));
-  };
-
-  const formatTime = (date) => {
-    const now = new Date();
-    const diff = now.getTime() - date.getTime();
-    const minutes = Math.floor(diff / 60000);
-    const hours = Math.floor(diff / 3600000);
-    const days = Math.floor(diff / 86400000);
-
-    if (minutes < 60) return `${minutes}m`;
-    if (hours < 24) return `${hours}h`;
-    return `${days}d`;
-  };
-
-  const processContent = (content) => {
-    return content.split(' ').map((word, index) => {
-      if (word.startsWith('#')) {
-        return (
-          <span key={index} className="hashtag">
-            {word}{' '}
-          </span>
-        );
-      }
-      if (word.startsWith('@')) {
-        return (
-          <span key={index} className="mention">
-            {word}{' '}
-          </span>
-        );
-      }
-      return word + ' ';
-    });
-  };
-
-  const PostCard = ({ post }) => {
-    const [showAllComments, setShowAllComments] = useState(false);
-    const [replyInputs, setReplyInputs] = useState({});
-    const handleReply = (commentId, postId) => {
-      const text = replyInputs[commentId]?.trim();
-      if (!text) return;
-      setPosts(posts => posts.map(p => {
-        if (p.id === postId) {
-          return {
-            ...p,
-            comments: (p.comments || []).map(c =>
-              c.id === commentId
-                ? {
-                    ...c,
-                    replies: [
-                      ...(c.replies || []),
-                      {
-                        id: Date.now(),
-                        user: currentUser,
-                        text,
-                        timestamp: new Date()
-                      }
-                    ]
-                  }
-                : c
-            )
-          };
-        }
-        return p;
-      }));
-      setReplyInputs(inputs => ({ ...inputs, [commentId]: '' }));
-    };
-    return (
-      <div className="post-card">
-        <div className="post-header">
-          <img src={post.user.avatar} alt={post.user.name} className="post-avatar" />
-          <div className="post-user-info">
-            <span className="post-user-name">{post.user.name} {post.user.verified && <span style={{ color: '#16a34a', fontSize: 16 }}>✓</span>}</span>
-            <span className="post-user-handle">@{post.user.handle}</span>
-            <span className="post-time">· {formatTime(new Date(post.timestamp))}</span>
+  return (
+    <div className="main-area container-wide agrisocio-container">
+      <div className="page-header">
+        <div>
+          <h2 className="page-title">AgriSocio</h2>
+          <div className="page-subtitle">Community for farmers — share updates, ask questions, get advice</div>
+        </div>
+        <div style={{display:'flex', alignItems:'center', gap:12}}>
+          <div className="search-box">
+            <input className="search-input" placeholder="Search posts, topics or people" />
+          </div>
+          <div className="profile-quick card" style={{display:'flex',alignItems:'center',gap:10,padding:'6px 10px'}}>
+            <img src={currentUser.avatar} alt="me" style={{width:36,height:36,borderRadius:8}} />
+            <div style={{display:'flex',flexDirection:'column'}}>
+              <strong style={{fontSize:13}}>{currentUser.name}</strong>
+              <small style={{color:'var(--muted)'}}>@{currentUser.handle}</small>
+            </div>
           </div>
         </div>
-        <div className="post-body">
-          <div className="post-content-text">{processContent(post.content)}</div>
-          {post.media && post.media.length > 0 && (
-            <div className="post-media">
-              {post.media.map((m, i) =>
-                m.type === 'image' ? (
-                  <img key={i} src={m.url} alt={m.alt} className="post-img" />
-                ) : (
-                  <video key={i} src={m.url} controls className="post-video" />
-                )
-              )}
-            </div>
-          )}
-          {post.poll && (
-            <div className="post-poll">
-              <div style={{ fontWeight: 600, marginBottom: 6 }}>Poll:</div>
-              {post.poll.options.map((opt, idx) => (
-                <div key={idx} style={{ marginBottom: 4 }}>
-                  <button
-                    style={{
-                      background: post.poll.userVote === idx ? '#16a34a' : 'var(--surface)',
-                      color: post.poll.userVote === idx ? '#fff' : 'var(--text-primary)',
-                      border: '1px solid var(--border)',
-                      borderRadius: 8,
-                      padding: '4px 12px',
-                      marginRight: 8,
-                      cursor: 'pointer'
-                    }}
-                    disabled={post.poll.userVote !== undefined}
-                    onClick={() => handlePollVote(post.id, idx)}
-                  >
-                    {opt.text} ({opt.votes})
-                  </button>
+      </div>
+
+      <div className="main-layout">
+        <div className="feed" style={{flex:1}}>
+
+          {/* Composer card */}
+          <div className="card post-creator" style={{marginBottom:16}}>
+            <div style={{display:'flex',gap:12,alignItems:'flex-start'}}>
+              <img src={currentUser.avatar} alt="avatar" style={{width:48,height:48,borderRadius:8}} />
+              <div style={{flex:1}}>
+                <textarea
+                  value={newPost}
+                  onChange={(e) => setNewPost(e.target.value)}
+                  placeholder={`What's happening on your farm, ${currentUser.name.split(' ')[0]}?`}
+                  style={{width:'100%',borderRadius:10,border:'1px solid rgba(15,23,42,0.06)',padding:12,minHeight:72}}
+                />
+                <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginTop:10}}>
+                  <div style={{display:'flex',gap:8}}>
+                    <button className="btn btn-ghost" onClick={() => fileInputRef.current && fileInputRef.current.click()}>Attach Image</button>
+                    <input ref={fileInputRef} type="file" accept="image/*" style={{display:'none'}} onChange={(e)=>{ setNewImage(e.target.files[0]); setImagePreview(URL.createObjectURL(e.target.files[0])); }} />
+                    <button className="btn btn-ghost" onClick={() => videoInputRef.current && videoInputRef.current.click()}>Attach Video</button>
+                    <input ref={videoInputRef} type="file" accept="video/*" style={{display:'none'}} onChange={(e)=>{ setNewVideo(e.target.files[0]); setVideoPreview(URL.createObjectURL(e.target.files[0])); }} />
+                  </div>
+                  <div>
+                    <button className="btn btn-primary" onClick={handlePost}>Post</button>
+                  </div>
                 </div>
-              ))}
-              <div style={{ fontSize: 13, color: 'var(--text-muted)' }}>{post.poll.totalVotes} votes · Ends in {formatTime(new Date(post.poll.endsAt))}</div>
+              </div>
             </div>
-          )}
-        </div>
-        <div className="post-actions">
-          <button className={`action-btn ${post.liked ? 'liked' : ''}`} onClick={() => handleLike(post.id)}><Heart /> {post.likes}</button>
-          <button className="action-btn" onClick={() => setShowComments(c => ({ ...c, [post.id]: !c[post.id] }))}><MessageCircle /> {post.comments ? post.comments.length : 0}</button>
-          <button className={`action-btn ${post.reposted ? 'reposted' : ''}`} onClick={() => handleRepost(post.id)}><Repeat2 /> {post.reposts}</button>
-          <button className={`action-btn ${post.bookmarked ? 'bookmarked' : ''}`} onClick={() => handleBookmark(post.id)}><Bookmark /></button>
-          <button className="action-btn" onClick={() => handleShare(post.id)}><ExternalLink /></button>
-        </div>
-        {/* Comments Section */}
-        {showComments[post.id] && (
-          <div className="comments-section">
-            <div className="add-comment">
-              <input
-                type="text"
-                placeholder="Add a comment... Use @ to mention"
-                value={commentInputs[post.id] || ''}
-                onChange={e => setCommentInputs(inputs => ({ ...inputs, [post.id]: e.target.value }))}
-                onKeyDown={e => { if (e.key === 'Enter') handleAddComment(post.id); }}
-              />
-              <button onClick={() => handleAddComment(post.id)} className="submit-btn" style={{ marginLeft: 8 }}>Comment</button>
-            </div>
-            <div className="comments-list">
-              {(post.comments || []).slice(0, showAllComments ? undefined : 2).map((c, idx) => (
-                <div key={c.id} className="comment-item">
-                  <div className="comment-header">
-                    <img src={c.user.avatar} alt={c.user.name} className="comment-avatar" />
-                    <span className="comment-user">{c.user.name} {c.user.verified && <span style={{ color: '#16a34a', fontSize: 14 }}>✓</span>}</span>
-                    <span className="comment-handle">@{c.user.handle}</span>
-                    <span className="comment-time">· {formatTime(new Date(c.timestamp))}</span>
+          </div>
+
+          {/* Posts feed */}
+          {posts.map((post) => (
+            <article key={post.id} className="card post-card" style={{marginBottom:14}}>
+              <div style={{display:'flex',gap:12}}>
+                <img src={post.user.avatar} alt="avatar" style={{width:52,height:52,borderRadius:10}} />
+                <div style={{flex:1}}>
+                  <div style={{display:'flex',justifyContent:'space-between',alignItems:'center'}}>
+                    <div>
+                      <strong style={{fontSize:15}}>{post.user.name} {post.user.verified && <span style={{color: 'var(--primary)', marginLeft:6}}>✓</span>}</strong>
+                      <div style={{color:'var(--muted)',fontSize:12}}>@{post.user.handle} · {new Date(post.timestamp).toLocaleString()}</div>
+                    </div>
+                    <div style={{display:'flex',gap:8}}>
+                      <button className="icon-btn" title="More"><MoreHorizontal size={18} /></button>
+                    </div>
                   </div>
-                  <div className="comment-text">{processContent(c.text)}</div>
-                  <div className="comment-actions">
-                    <button className="reply-btn" onClick={() => setReplyInputs(inputs => ({ ...inputs, [c.id]: '' }))}>Reply</button>
-                  </div>
-                  {/* Reply input */}
-                  <div className="reply-input">
-                    <input
-                      type="text"
-                      placeholder="Reply..."
-                      value={replyInputs[c.id] || ''}
-                      onChange={e => setReplyInputs(inputs => ({ ...inputs, [c.id]: e.target.value }))}
-                      onKeyDown={e => { if (e.key === 'Enter') handleReply(c.id, post.id); }}
-                    />
-                    <button onClick={() => handleReply(c.id, post.id)} className="submit-btn" style={{ marginLeft: 8 }}>Send</button>
-                  </div>
-                  {/* Replies */}
-                  {c.replies && c.replies.length > 0 && (
-                    <div className="replies-list">
-                      {c.replies.map(r => (
-                        <div key={r.id} className="reply-item">
-                          <div className="reply-header">
-                            <img src={r.user.avatar} alt={r.user.name} className="reply-avatar" />
-                            <span className="reply-user">{r.user.name} {r.user.verified && <span style={{ color: '#16a34a', fontSize: 13 }}>✓</span>}</span>
-                            <span className="reply-handle">@{r.user.handle}</span>
-                            <span className="reply-time">· {formatTime(new Date(r.timestamp))}</span>
-                          </div>
-                          <div className="reply-text">{processContent(r.text)}</div>
-                        </div>
+
+                  <div style={{marginTop:10,marginBottom:10,color:'var(--text)'}}>{post.content}</div>
+
+                  {post.media && post.media.length > 0 && (
+                    <div className="post-media" style={{display:'flex',gap:8,flexWrap:'wrap'}}>
+                      {post.media.map((m, i) => (
+                        m.type === 'image' ? <img key={i} src={m.url} alt={m.alt} style={{width:220,height:'auto',borderRadius:10}} /> : <video key={i} src={m.url} style={{width:300,borderRadius:10}} controls />
                       ))}
                     </div>
                   )}
+
+                  <div style={{display:'flex',gap:12,marginTop:12,alignItems:'center'}}>
+                    <button className="icon-btn" onClick={() => handleLike(post.id)}><Heart size={18} /> <span style={{marginLeft:6}}>{post.likes}</span></button>
+                    <button className="icon-btn" onClick={() => handleRepost(post.id)}><Repeat2 size={18} /> <span style={{marginLeft:6}}>{post.reposts}</span></button>
+                    <button className="icon-btn" onClick={() => handleBookmark(post.id)}><Bookmark size={18} /></button>
+                    <button className="icon-btn" onClick={() => handleShare(post.id)}><ExternalLink size={16} /></button>
+                    <div style={{marginLeft:'auto',color:'var(--muted)',fontSize:13}}>{post.replies} replies</div>
+                  </div>
+                </div>
+              </div>
+            </article>
+          ))}
+
+        </div>
+
+        <aside className="sidebar" style={{width:320,marginLeft:20}}>
+          <div className="card" style={{padding:12,marginBottom:12}}>
+            <h4 style={{margin:0}}>Trending Topics</h4>
+            <ul style={{listStyle:'none',padding:0,marginTop:8,display:'flex',flexDirection:'column',gap:8}}>
+              {trendingTopics.map((t) => (
+                <li key={t.tag} style={{display:'flex',justifyContent:'space-between',alignItems:'center'}}>
+                  <a href="#" style={{color:'var(--primary)',fontWeight:700}}>{t.tag}</a>
+                  <small style={{color:'var(--muted)'}}>{t.posts}</small>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="card" style={{padding:12}}>
+            <h4 style={{margin:0}}>Suggested Accounts</h4>
+            <div style={{display:'flex',flexDirection:'column',gap:10,marginTop:8}}>
+              {fakeUsers.map((u) => (
+                <div key={u.id} style={{display:'flex',gap:10,alignItems:'center'}}>
+                  <img src={u.avatar} alt={u.name} style={{width:44,height:44,borderRadius:8}} />
+                  <div style={{flex:1}}>
+                    <div style={{fontWeight:700}}>{u.name}</div>
+                    <div style={{color:'var(--muted)',fontSize:13}}>@{u.handle}</div>
+                  </div>
+                  <button className="btn btn-ghost">Follow</button>
                 </div>
               ))}
-              {(post.comments || []).length > 2 && !showAllComments && (
-                <button className="show-more-btn" onClick={() => setShowAllComments(true)}>Show more comments</button>
-              )}
             </div>
           </div>
-        )}
-      </div>
-    );
-  };
+        </aside>
 
-// Main return block for AgriSocio component
-  return (
-    <div className="main-layout">
-      {/* Left Sidebar */}
-      <div className="left-sidebar">
-        <div className="logo">
-          <h1>🌾 AgriSocio</h1>
-        </div>
-        <nav className="navigation">
-          {[ 
-            { icon: Home, label: 'Home', id: 'home' },
-            { icon: Search, label: 'Explore', id: 'explore' },
-            { icon: Bell, label: 'Notifications', id: 'notifications' },
-            { icon: Mail, label: 'Messages', id: 'messages' },
-            { icon: Bookmark, label: 'Bookmarks', id: 'bookmarks' },
-            { icon: Users, label: 'Communities', id: 'communities' },
-            { icon: User, label: 'Profile', id: 'profile' },
-            { icon: MoreHorizontal, label: 'More', id: 'more' }
-          ].map((item) => (
-            <button
-              key={item.id}
-              className={`nav-item ${activeTab === item.id ? 'active' : ''}`}
-              onClick={() => setActiveTab(item.id)}
-            >
-              <item.icon className="nav-icon" />
-              {item.label}
-            </button>
-          ))}
-        </nav>
-        <button className="post-button">Post</button>
-        <div className="user-section">
-          <div 
-            className="user-profile"
-            onClick={() => setShowProfile(currentUser)}
-          >
-            <div className="user-avatar">
-              <img src={currentUser.avatar} alt={currentUser.name} />
-            </div>
-            <div className="user-details">
-              <p className="user-name">{currentUser.name}</p>
-              <p className="user-handle">@{currentUser.handle}</p>
-            </div>
-            <MoreHorizontal className="more-icon" />
-          </div>
-        </div>
       </div>
-      {/* Main Content */}
-      <div className="main-content">
-        <div className="content-wrapper" style={{ margin: '0 auto', minHeight: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center', background: 'transparent', boxShadow: 'none', padding: 0 }}>
-          <div className="content-header">
-            <h1>{activeTab.charAt(0).toUpperCase() + activeTab.slice(1)}</h1>
-          </div>
-          {/* Main Tabs and Content */}
-          {activeTab === 'home' && (
-            <>
-              <div className="post-composer">
-                <div className="composer-content">
-                  <div className="composer-avatar">
-                    <img src={currentUser.avatar} alt={currentUser.name} />
-                  </div>
-                  <div className="composer-main">
-                    <textarea
-                      placeholder="What's happening on your farm?"
-                      className="composer-textarea"
-                      rows={3}
-                      value={newPost}
-                      onChange={(e) => setNewPost(e.target.value)}
-                    />
-                    <div className="composer-actions">
-                      <div className="media-buttons">
-                        <button
-                          className="media-btn"
-                          type="button"
-                          onClick={() => fileInputRef.current && fileInputRef.current.click()}
-                          aria-label="Add Photo"
-                        >
-                          <Camera className="icon" />
-                        </button>
-                        <input
-                          type="file"
-                          accept="image/*"
-                          style={{ display: 'none' }}
-                          ref={fileInputRef}
-                          onChange={handleImageChange}
-                        />
-                        <button
-                          className="media-btn"
-                          type="button"
-                          onClick={() => videoInputRef.current && videoInputRef.current.click()}
-                          aria-label="Add Video"
-                        >
-                          <Video className="icon" />
-                        </button>
-                        <input
-                          type="file"
-                          accept="video/*"
-                          style={{ display: 'none' }}
-                          ref={videoInputRef}
-                          onChange={handleVideoChange}
-                        />
-                        <button className="media-btn" type="button">
-                          <BarChart3 className="icon" />
-                        </button>
-                        <button className="media-btn" type="button">
-                          <Smile className="icon" />
-                        </button>
-                      </div>
-                      {(imagePreview || videoPreview) && (
-                        <div className="media-preview" style={{ marginTop: 10 }}>
-                          {imagePreview && (
-                            <img src={imagePreview} alt="Preview" style={{ maxWidth: 120, maxHeight: 120, borderRadius: 8 }} />
-                          )}
-                          {videoPreview && (
-                            <video src={videoPreview} controls style={{ maxWidth: 160, maxHeight: 120, borderRadius: 8 }} />
-                          )}
-                          <button
-                            type="button"
-                            style={{ marginLeft: 10, color: '#f44', background: 'none', border: 'none', cursor: 'pointer' }}
-                            onClick={() => { setNewImage(null); setImagePreview(null); setNewVideo(null); setVideoPreview(null); }}
-                          >
-                            Remove
-                          </button>
-                        </div>
-                      )}
-                      <button
-                        onClick={handlePost}
-                        disabled={!newPost.trim() && !imagePreview && !videoPreview}
-                        className="submit-btn"
-                      >
-                        Post
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              {/* Feed */}
-              {shareMsg && (
-                <div style={{ color: '#16a34a', textAlign: 'center', margin: '10px 0', fontWeight: 600 }}>{shareMsg}</div>
-              )}
-              <div className="feed">
-                {posts.map((post) => (
-                  <PostCard key={post.id} post={post} />
-                ))}
-              </div>
-            </>
-          )}
-          {activeTab === 'explore' && (
-            <div className="explore-section" style={{ padding: 32 }}>
-              <h2>Explore Agriculture</h2>
-              <div className="explore-feed">
-                <div className="explore-card">
-                  <h3>🌱 New Sustainable Farming Techniques</h3>
-                  <p>Discover the latest in crop rotation, organic fertilizers, and water-saving irrigation. #SustainableFarming</p>
-                </div>
-                <div className="explore-card">
-                  <h3>🚁 Drone Technology in Fields</h3>
-                  <p>How drones are helping farmers monitor crops and fight pests. #DroneAgriculture</p>
-                </div>
-                <div className="explore-card">
-                  <h3>🌾 Trending Crop: Millets</h3>
-                  <p>Millets are gaining popularity for their resilience and nutrition. #MilletRevolution</p>
-                </div>
-              </div>
-            </div>
-          )}
-          {activeTab === 'notifications' && (
-            <div className="notifications-section" style={{ padding: 32 }}>
-              <h2>Notifications</h2>
-              <ul>
-                <li>Priya Agri Solutions liked your post.</li>
-                <li>AgriTech India followed you.</li>
-                <li>Organic Farming commented: "Great tips!"</li>
-                <li>Your poll received 10 new votes.</li>
-              </ul>
-            </div>
-          )}
-          {activeTab === 'bookmarks' && (
-            <div className="bookmarks-section" style={{ padding: 32 }}>
-              <h2>Bookmarked Posts</h2>
-              <div className="explore-card">No bookmarks yet. Save posts to see them here!</div>
-            </div>
-          )}
-          {activeTab === 'communities' && (
-            <div className="communities-section" style={{ padding: 32 }}>
-              <h2>Communities</h2>
-              <div className="explore-card">Join communities to connect with other farmers and agri-experts!</div>
-              <ul>
-                <li>#OrganicFarming</li>
-                <li>#WheatHarvest</li>
-                <li>#DroneAgriculture</li>
-                <li>#MarketUpdates</li>
-              </ul>
-            </div>
-          )}
-          {activeTab === 'profile' && (
-            <div className="profile-section" style={{ padding: 32 }}>
-              <h2>Your Profile</h2>
-              <div className="explore-card">
-                <strong>{currentUser.name}</strong> <span>@{currentUser.handle}</span>
-                <p>{currentUser.bio}</p>
-                <p>Location: {currentUser.location}</p>
-                <p>Followers: {currentUser.followers} | Following: {currentUser.following}</p>
-              </div>
-            </div>
-          )}
-          {activeTab === 'messages' && (
-            <div className="dm-section" style={{ display: 'flex', height: '70vh', background: 'var(--surface)', borderRadius: 12, overflow: 'hidden', margin: 24 }}>
-              <div style={{ width: 220, borderRight: '1px solid var(--border)', background: 'var(--background)', padding: 12 }}>
-                <h3 style={{ margin: '8px 0 12px 0', color: 'var(--primary-color)' }}>Chats</h3>
-                {fakeUsers.map(u => (
-                  <div
-                    key={u.id}
-                    style={{ display: 'flex', alignItems: 'center', gap: 10, padding: 8, borderRadius: 8, cursor: 'pointer', background: activeChat?.id === u.id ? 'var(--surface)' : 'none', fontWeight: activeChat?.id === u.id ? 600 : 400 }}
-                    onClick={() => setActiveChat(u)}
-                  >
-                    <img src={u.avatar} alt={u.name} style={{ width: 36, height: 36, borderRadius: '50%' }} />
-                    <div>
-                      <div>{u.name}</div>
-                      <div style={{ fontSize: 13, color: 'var(--text-muted)' }}>@{u.handle}</div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-              <div style={{ flex: 1, display: 'flex', flexDirection: 'column', background: 'var(--surface)' }}>
-                {activeChat ? (
-                  <>
-                    <div style={{ padding: 12, borderBottom: '1px solid var(--border)', display: 'flex', alignItems: 'center', gap: 10 }}>
-                      <img src={activeChat.avatar} alt={activeChat.name} style={{ width: 36, height: 36, borderRadius: '50%' }} />
-                      <div>
-                        <div style={{ fontWeight: 600 }}>{activeChat.name}</div>
-                        <div style={{ fontSize: 13, color: 'var(--text-muted)' }}>@{activeChat.handle}</div>
-                      </div>
-                    </div>
-                    <div style={{ flex: 1, overflowY: 'auto', padding: 16, display: 'flex', flexDirection: 'column', gap: 10 }}>
-                      {(dmMessages[activeChat.id] || []).map((msg, i) => (
-                        <div key={i} style={{ alignSelf: msg.from === 'me' ? 'flex-end' : 'flex-start', background: msg.from === 'me' ? 'var(--primary-color)' : 'var(--surface)', color: msg.from === 'me' ? '#fff' : 'var(--text-primary)', borderRadius: 12, padding: '7px 14px', maxWidth: 260 }}>
-                          {msg.text}
-                        </div>
-                      ))}
-                    </div>
-                    <div style={{ display: 'flex', gap: 8, padding: 12, borderTop: '1px solid var(--border)' }}>
-                      <input
-                        type="text"
-                        value={dmInput}
-                        onChange={e => setDmInput(e.target.value)}
-                        onKeyDown={e => { if (e.key === 'Enter') handleSendDm(); }}
-                        placeholder={`Message @${activeChat.handle}`}
-                        style={{ flex: 1, borderRadius: 8, border: '1px solid var(--border)', padding: 8, fontSize: 15 }}
-                      />
-                      <button onClick={handleSendDm} className="submit-btn" style={{ padding: '6px 18px', fontSize: 15 }}>Send</button>
-                    </div>
-                  </>
-                ) : (
-                  <div style={{ color: 'var(--text-muted)', textAlign: 'center', marginTop: 60 }}>Select a chat to start messaging</div>
-                )}
-              </div>
-            </div>
-          )}
-        </div>
-      </div>
-      {/* Right Sidebar */}
-      <div className="right-sidebar" style={{ width: 340, background: 'var(--background)', padding: 24, borderLeft: '1px solid var(--border)', minHeight: '100vh' }}>
-        <div style={{ marginBottom: 32 }}>
-          <input type="text" placeholder="Search AgriSocio" style={{ width: '100%', padding: 10, borderRadius: 8, border: '1px solid var(--border)', background: 'var(--surface)', color: 'var(--text-primary)' }} />
-        </div>
-        <div className="trending-section" style={{ marginBottom: 32 }}>
-          <h3 style={{ fontWeight: 700, marginBottom: 12 }}>What's happening</h3>
-          {trendingTopics.map((topic, i) => (
-            <div key={i} style={{ marginBottom: 14 }}>
-              <div style={{ color: 'var(--text-muted)', fontSize: 13 }}>Trending in Agriculture</div>
-              <div style={{ fontWeight: 600 }}>{topic.tag}</div>
-              <div style={{ color: 'var(--text-muted)', fontSize: 13 }}>{topic.posts} Posts</div>
-            </div>
-          ))}
-        </div>
-        <div className="who-to-follow-section">
-          <h3 style={{ fontWeight: 700, marginBottom: 12 }}>Who to follow</h3>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-              <div style={{ width: 38, height: 38, borderRadius: '50%', background: 'var(--surface)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 700, fontSize: 18 }}>A</div>
-              <div style={{ flex: 1 }}>
-                <div style={{ fontWeight: 600 }}>AgriTech India <span style={{ color: '#16a34a', fontSize: 16 }}>✓</span></div>
-                <div style={{ color: 'var(--text-muted)', fontSize: 13 }}>@agritech_in</div>
-              </div>
-              <button style={{ background: '#16a34a', color: '#fff', border: 'none', borderRadius: 20, padding: '6px 18px', fontWeight: 600, cursor: 'pointer' }}>Follow</button>
-            </div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-              <div style={{ width: 38, height: 38, borderRadius: '50%', background: 'var(--surface)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 700, fontSize: 18 }}>O</div>
-              <div style={{ flex: 1 }}>
-                <div style={{ fontWeight: 600 }}>Organic Farming</div>
-                <div style={{ color: 'var(--text-muted)', fontSize: 13 }}>@organic_farms</div>
-              </div>
-              <button style={{ background: '#16a34a', color: '#fff', border: 'none', borderRadius: 20, padding: '6px 18px', fontWeight: 600, cursor: 'pointer' }}>Follow</button>
-            </div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-              <div style={{ width: 38, height: 38, borderRadius: '50%', background: 'var(--surface)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 700, fontSize: 18 }}>F</div>
-              <div style={{ flex: 1 }}>
-                <div style={{ fontWeight: 600 }}>Farm Equipment</div>
-                <div style={{ color: 'var(--text-muted)', fontSize: 13 }}>@farm_equip</div>
-              </div>
-              <button style={{ background: '#16a34a', color: '#fff', border: 'none', borderRadius: 20, padding: '6px 18px', fontWeight: 600, cursor: 'pointer' }}>Follow</button>
-            </div>
-          </div>
-        </div>
-      </div>
-      {/* Profile Modal */}
-      {showProfile && (
-        <ProfileModal user={showProfile} onClose={() => setShowProfile(null)} />
-      )}
     </div>
   );
 };
