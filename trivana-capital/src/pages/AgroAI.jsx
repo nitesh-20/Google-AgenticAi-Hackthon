@@ -102,53 +102,90 @@ const AgroAI = () => {
   const handleImageBtn = () => fileInputRef.current && fileInputRef.current.click();
 
 
-
   return (
     <div className="chat-wrapper">
-      <div className="center-logo">Agri Sahayak</div>
-
-      {username && (
-        <div className="welcome-message">
-          <h2>Hello, <span className="username">{username}</span> 👋</h2>
-          <p>How can I help you today?</p>
-        </div>
-      )}
-
-      <div className="chat-messages">
-        {messages.map((msg, idx) => (
-          <div key={idx} className={`chat-msg ${msg.from}`}> 
-            {msg.type === "text" && <span>{msg.content}</span>}
-            {msg.type === "image" && <img src={msg.content} alt="user upload" style={{maxWidth:200}} />}
-            {msg.type === "voice" && <audio src={msg.content} controls />}
+      <div className="chat-card">
+        <div className="chat-card-header">
+          <div className="chat-avatar">AS</div>
+          <div className="chat-title-wrap">
+            <div className="chat-title">Agri Sahayak</div>
+            {username && <div className="chat-subtitle">Hello, <span className="username">{username}</span> 👋</div>}
+            <div className="chat-subtext">How can I help you today?</div>
           </div>
-        ))}
-        {loading && <div className="chat-msg bot"><span>Thinking...</span></div>}
-      </div>
-
-      <div className="chat-input-box">
-        <input
-          type="text"
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          placeholder="Ask anything..."
-          onKeyDown={(e) => e.key === "Enter" && handleSend()}
-        />
-        <div className="input-icons">
-          <button
-            className={`mic-btn${recording ? ' recording' : ''}`}
-            onClick={handleMicBtn}
-            style={{ background: recording ? '#e53935' : undefined }}
-            title={recording ? 'Stop Recording' : 'Start Recording'}
-          >
-            {recording ? '⏹️' : '🎤'}
-          </button>
-          <button className="image-btn" onClick={handleImageBtn}>🖼️</button>
-          <button className="send-btn" onClick={handleSend}>Send</button>
         </div>
-        <input type="file" accept="image/*" style={{display:'none'}} ref={fileInputRef} onChange={handleImageChange} />
-        {/* Removed audio file input, mic now uses real recording */}
+
+        <div className="chat-messages">
+          {messages.map((msg, idx) => (
+            <div key={idx} className={`chat-msg ${msg.from}`}>
+              <div className={`bubble ${msg.from === 'bot' ? 'bot-bubble' : 'user-bubble'}`}>
+                {msg.type === "text" && <div className="bubble-text">{msg.content}</div>}
+                {msg.type === "image" && <img src={msg.content} alt="user upload" className="bubble-image" />}
+                {msg.type === "voice" && <audio src={msg.content} controls className="bubble-audio" />}
+              </div>
+            </div>
+          ))}
+
+          {loading && (
+            <div className="chat-msg bot">
+              <div className="bubble bot-bubble"><div className="bubble-text">Thinking...</div></div>
+            </div>
+          )}
+        </div>
+
+        <div className="chat-input-box">
+          <input
+            className="text-input"
+            type="text"
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            placeholder="Ask anything..."
+            onKeyDown={(e) => e.key === "Enter" && handleSend()}
+          />
+
+          <div className="input-icons">
+            <button
+              className={`icon-btn mic-btn ${recording ? 'recording' : ''}`}
+              onClick={handleMicBtn}
+              title={recording ? 'Stop Recording' : 'Start Recording'}
+              aria-label={recording ? 'Stop recording' : 'Start recording'}
+            >
+              {recording ? (
+                /* stop square SVG */
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden>
+                  <rect x="4" y="4" width="16" height="16" rx="2" fill="#b91c1c" />
+                </svg>
+              ) : (
+                /* mic SVG */
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden>
+                  <path d="M12 14a3 3 0 0 0 3-3V6a3 3 0 0 0-6 0v5a3 3 0 0 0 3 3z" fill="#0b6b58" />
+                  <path d="M19 11a1 1 0 0 0-2 0 5 5 0 0 1-10 0 1 1 0 0 0-2 0 7 7 0 0 0 6 6.92V21a1 1 0 0 0 2 0v-3.08A7 7 0 0 0 19 11z" fill="#0b6b58" />
+                </svg>
+              )}
+            </button>
+
+            <button
+              className="icon-btn image-btn"
+              onClick={handleImageBtn}
+              title="Upload image"
+              aria-label="Upload image"
+            >
+              <span className="camera-frame" aria-hidden />
+            </button>
+
+            <button className="send-btn" onClick={handleSend} title="Send message" aria-label="Send">
+              <span className="send-icon" aria-hidden>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M2 21l21-9L2 3v7l15 2-15 2v7z" fill="#fff" />
+                </svg>
+              </span>
+              Send
+            </button>
+          </div>
+
+          <input type="file" accept="image/*" style={{display:'none'}} ref={fileInputRef} onChange={handleImageChange} />
+        </div>
+
       </div>
-      {recording && <div style={{color:'#e53935',marginTop:8}}>Recording... Click ⏹️ to stop.</div>}
     </div>
   );
 };
