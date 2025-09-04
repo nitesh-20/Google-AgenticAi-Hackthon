@@ -1,16 +1,16 @@
 /* LandRecordMap styles */
 .landrecord-root {
-  background: linear-gradient(120deg,#23243a 60%,#1a1a2e 100%);
+  background: #ffffff;
   border-radius: 1.5em;
-  box-shadow: 0 4px 24px #0006;
+  box-shadow: 0 6px 24px rgba(2,6,23,0.06);
   padding: 38px 24px 32px 24px;
   max-width: 600px;
   margin: 40px auto;
-  color: #fff;
+  color: #0b1220;
 }
 .landrecord-title {
   font-size: 2.1rem;
-  color: #ffd82a;
+  color: #061018;
   font-weight: 700;
   margin-bottom: 18px;
   letter-spacing: 1px;
@@ -29,10 +29,10 @@
   color: #ffd82a;
 }
 .landrecord-input, .landrecord-select {
-  background: #252832;
-  color: #eaf4fa;
+  background: #ffffff;
+  color: #0b1220;
   font-size: 1.11em;
-  border: none;
+  border: 1px solid #e6edf3;
   border-radius: 7px;
   padding: 11px 20px;
   outline: none;
@@ -60,14 +60,15 @@
 }
 .landrecord-card {
   margin-top: 28px;
-  background: #23272f;
+  background: #ffffff;
   border-radius: 12px;
   padding: 18px;
-  box-shadow: 0 2px 12px #0007;
+  box-shadow: 0 6px 18px rgba(2,6,23,0.06);
+  border: 1px solid #e6edf3;
 }
 .landrecord-map {
   margin: 18px 0 0 0;
   border-radius: 10px;
   overflow: hidden;
-  box-shadow: 0 2px 12px #0007;
+  box-shadow: 0 6px 18px rgba(2,6,23,0.04);
 }
