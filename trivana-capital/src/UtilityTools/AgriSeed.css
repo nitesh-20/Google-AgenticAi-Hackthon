@@ -1,14 +1,14 @@
 .agriseed-infobox {
-  background: #23243a;
+  background: #ffffff;
   border-radius: 1em;
-  box-shadow: 0 2px 12px #0007;
+  box-shadow: 0 6px 18px rgba(2,6,23,0.06);
   padding: 18px 14px;
   margin-bottom: 22px;
-  color: #eaf4fa;
+  color: #0b1220;
   text-align: left;
 }
 .agriseed-infobox h3 {
-  color: #ffd82a;
+  color: #0b1220;
   font-size: 1.2em;
   margin-bottom: 10px;
 }
@@ -22,18 +22,18 @@
 }
 /* Agri Seed Styles */
 .agriseed-root {
-  background: linear-gradient(120deg,#23243a 60%,#1a1a2e 100%);
+  background: #ffffff;
   border-radius: 1.5em;
-  box-shadow: 0 4px 24px #0006;
+  box-shadow: 0 6px 24px rgba(2,6,23,0.06);
   padding: 38px 24px 32px 24px;
   max-width: 500px;
   margin: 40px auto;
-  color: #fff;
+  color: #0b1220;
   text-align: center;
 }
 .agriseed-title {
   font-size: 2.1rem;
-  color: #ffd82a;
+  color: #061018;
   font-weight: 700;
   margin-bottom: 18px;
   letter-spacing: 1px;
@@ -44,15 +44,16 @@
   gap: 18px;
 }
 .agriseed-card {
-  background: #23272f;
+  background: #ffffff;
+  color: #0b1220;
+  box-shadow: 0 6px 18px rgba(2,6,23,0.06);
   border-radius: 1.2em;
-  box-shadow: 0 2px 12px #0007;
   padding: 18px 14px;
   margin: 0 auto;
 }
 .agriseed-name {
   font-size: 1.3em;
-  color: #38bdf8;
+  color: #0ea5a4;
   font-weight: 700;
 }
 .agriseed-variety, .agriseed-price, .agriseed-info {
