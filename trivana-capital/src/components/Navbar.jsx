@@ -1,7 +1,7 @@
 // src/components/Navbar.jsx
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
-import { Menu, Search, Bell, User } from "lucide-react";
+import { Menu, Bell, User } from "lucide-react";
 import "./navbar.css";
 
 const Navbar = ({ user, onLogout }) => {
@@ -26,6 +26,9 @@ const Navbar = ({ user, onLogout }) => {
           <img src="/src/assets/logo.jpeg" alt="Trivana" className="brand-logo" />
           <span className="brand-text">AgriAI</span>
         </div>
+        {user && (
+          <button className="logout-btn" onClick={onLogout} title="Logout">Logout</button>
+        )}
       </div>
 
       <nav className={`nav-center ${open ? "open" : ""}`} aria-label="Primary">
@@ -37,15 +40,12 @@ const Navbar = ({ user, onLogout }) => {
       </nav>
 
       <div className="nav-right">
-        <button className="icon-btn" aria-label="Search">
-          <Search size={18} />
-        </button>
         <button className="icon-btn" aria-label="Notifications">
           <Bell size={18} />
         </button>
 
         <div className="user-menu">
-          <img src={user?.photoURL || user?.avatar || "/src/assets/logo.jpeg"} alt={user?.displayName || user?.name} className="user-avatar" />
+          <img src={user?.photoURL || user?.avatar || "/placeholder.svg"} alt={user?.displayName || user?.name} className="user-avatar" />
           <div className="user-dropdown">
             <div className="user-name">{user?.displayName || user?.name}</div>
             <NavLink to="/profile" className="user-action">Profile</NavLink>

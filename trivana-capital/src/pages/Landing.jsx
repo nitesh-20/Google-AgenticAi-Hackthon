@@ -9,12 +9,16 @@ const Landing = () => {
         <p className="landing-subtitle">Smart farming tools and marketplace</p>
 
         <div className="landing-iframe-wrapper card">
-          <iframe
-            src="https://landingtrivanaa.framer.ai/"
-            title="Trivana Landing"
-            frameBorder="0"
-            allowFullScreen
-          />
+          <div
+            className="landing-placeholder"
+            style={{ padding: "36px", textAlign: "center" }}
+          >
+            <h3 style={{ margin: 0, color: "#0b6b8a" }}>Prototype removed</h3>
+            <p style={{ marginTop: 8, color: "#556b6a" }}>
+              The Framer prototype has been removed from this build. Explore the
+              app using the navigation above.
+            </p>
+          </div>
         </div>
       </div>
     </div>

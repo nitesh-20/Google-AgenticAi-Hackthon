@@ -2,26 +2,321 @@
 .chartbot-row {
   display: flex;
   flex-direction: row;
-  align-items: flex-start;
+  align-items: flex-start; /* ensure both chart and chatbot align to top */
   justify-content: center;
   gap: 32px;
   width: 100%;
-  max-width: 1200px;
+  max-width: 1100px; /* match header width for consistent alignment */
   margin: 0 auto 0 auto;
+  padding: 8px 16px; /* small horizontal padding to keep things centered */
 }
 .chartbot-row .chart-container {
-  flex: 2 1 600px;
+  flex: 2 1 620px;
   min-width: 0;
+  margin-top: 8px; /* reduce top gap so chart aligns with header */
+  padding: 14px; /* inner padding so iframe sits nicely */
+}
+.chart-container iframe {
+  border-radius: 12px;
+  background: #ffffff; /* TradingView light theme sits inside white frame */
+  width: 100%;
+  height: 100%;
+  min-height: 420px;
+  display: block;
 }
 .chartbot-row .market-chatbot {
   flex: 1 1 320px;
-  max-width: 340px;
+  max-width: 360px;
   min-width: 260px;
-  margin-top: 48px;
+  margin-top: 0; /* ensure no extra top margin */
   margin-bottom: 0;
-  position: static;
+  position: relative;
 }
 
+/* place the floating chatbot at the top-right of the chart container */
+.chart-container .market-chatbot {
+  position: absolute;
+  top: 28px;
+  right: 24px;
+  z-index: 10;
+}
+
+.market-chatbot { margin-top: 0; }
+
+.market-container {
+  background: linear-gradient(180deg,#fbfdfc 0%, #ffffff 100%);
+  color: #052a28;
+  padding: 24px 0 80px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+  position: relative;
+}
+
+.market-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 18px;
+  align-items: center;
+  flex-wrap: wrap;
+  width: 100%;
+  max-width: 1100px;
+  padding: 14px 20px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 8px 30px rgba(9,20,25,0.06);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.search-select {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  background: #fff;
+  border-radius: 12px;
+  padding: 10px 14px;
+  box-shadow: 0 6px 24px rgba(9,20,25,0.04);
+  transition: box-shadow 0.22s, background 0.22s;
+}
+
+.search-select input,
+.search-select select {
+  padding: 12px 18px;
+  border: 1px solid rgba(9,20,25,0.06);
+  border-radius: 10px;
+  outline: none;
+  background: #ffffff;
+  color: #052a28;
+  font-size: 1.05rem;
+  box-shadow: 0 2px 8px rgba(9,20,25,0.04);
+  transition: box-shadow 0.22s, border 0.18s, background 0.22s;
+  font-weight: 500;
+}
+.search-select input:focus,
+.search-select select:focus {
+  box-shadow: 0 6px 24px rgba(6,182,163,0.08);
+  background: #ffffff;
+  border: 1.5px solid var(--chat-accent);
+}
+
+.header-right .price-label {
+  padding: 10px 18px;
+  border-radius: 10px;
+  font-weight: 700;
+  background: linear-gradient(90deg, rgba(6,182,163,0.08), rgba(16,185,129,0.06));
+  color: var(--chat-accent-2);
+  font-size: 1.05rem;
+  box-shadow: 0 6px 18px rgba(6,24,34,0.04);
+}
+
+.chart-container {
+  background: #0f172a; /* keep chart dark so TradingView light widgets still look good inside white card */
+  border-radius: 18px;
+  padding: 0;
+  margin-top: 28px;
+  margin-bottom: 40px;
+  box-shadow: 0 12px 36px rgba(9,20,25,0.06);
+  min-height: 420px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 920px;
+  overflow: hidden;
+}
+
+/* Professional order controls */
+.order-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* input left, buttons right */
+  gap: 18px;
+  margin-top: 28px;
+  flex-wrap: nowrap;
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 14px 18px;
+  box-shadow: 0 14px 40px rgba(9,20,25,0.06);
+  width: 100%;
+  max-width: 920px;
+}
+
+.order-controls .order-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+
+.order-controls label {
+  font-size: 0.95rem;
+  color: #334e4b;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.order-controls input[type="number"] {
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid rgba(9,20,25,0.06);
+  width: 220px;
+  background: #fff;
+  color: #052a28;
+  font-size: 1rem;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.6), 0 6px 18px rgba(9,20,25,0.04);
+}
+
+/* Button group on the right */
+.order-controls .controls-group {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.trading-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 22px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 1rem;
+  box-shadow: 0 8px 28px rgba(9,20,25,0.06);
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+  min-width: 120px;
+}
+
+.buy-btn {
+  background: linear-gradient(90deg, #06b6d4 0%, #10b981 100%);
+  color: #fff;
+  border: none;
+  border: 1px solid rgba(6,182,163,0.12);
+}
+.buy-btn:hover { transform: translateY(-3px); box-shadow: 0 14px 40px rgba(6,182,163,0.12); }
+
+.sell-btn {
+  background: linear-gradient(90deg, #f97316 0%, #ef4444 100%);
+  color: #fff;
+  border: none;
+  border: 1px solid rgba(239,68,68,0.12);
+}
+.sell-btn:hover { transform: translateY(-3px); box-shadow: 0 14px 40px rgba(239,68,68,0.12); }
+
+/* Floating Chatbot Styles - convert to white card aligned to right */
+.market-chatbot {
+  width: 340px;
+  max-width: 92vw;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 12px 36px rgba(9,20,25,0.08);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  transition: box-shadow 0.22s, transform 0.18s;
+  min-height: 0;
+  min-width: 0;
+  border: 1px solid rgba(9,20,25,0.04);
+}
+
+.chart-container .market-chatbot {
+  position: absolute;
+  right: 24px;
+  bottom: 24px;
+  z-index: 10;
+}
+.market-chatbot-header {
+  width: 100%;
+  background: linear-gradient(90deg, rgba(6,182,163,0.12) 60%, rgba(16,185,129,0.06) 100%);
+  padding: 12px 0;
+  text-align: center;
+  color: var(--chat-accent-2);
+  font-weight: 700;
+  font-size: 1.08rem;
+  letter-spacing: 1px;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  border-bottom: 1px solid rgba(9,20,25,0.04);
+}
+.market-chatbot-body {
+  width: 100%;
+  min-height: 80px;
+  background: #f8fffb;
+  padding: 18px 16px 12px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: flex-start;
+  justify-content: flex-end;
+}
+.market-chatbot-msg {
+  border-radius: 12px;
+  padding: 10px 16px;
+  margin-bottom: 6px;
+  max-width: 80%;
+  font-size: 1rem;
+  box-shadow: 0 6px 18px rgba(9,20,25,0.04);
+}
+.market-chatbot-msg.user {
+  align-self: flex-end;
+  background: linear-gradient(90deg,var(--chat-accent),var(--chat-accent-2));
+  color: #fff;
+}
+.market-chatbot-msg.bot {
+  align-self: flex-start;
+  background: #ffffff;
+  color: #052a28;
+  border: 1px solid rgba(9,20,25,0.04);
+}
+.market-chatbot-msg.bot.highlight {
+  background: linear-gradient(90deg,var(--chat-accent),var(--chat-accent-2));
+  color: #fff;
+}
+.market-chatbot-form {
+  width: 100%;
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+}
+.market-chatbot-form input[type="text"] {
+  flex: 1;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid rgba(9,20,25,0.04);
+  background: #fff;
+  color: #052a28;
+  font-size: 1rem;
+  box-shadow: 0 1px 6px rgba(9,20,25,0.03);
+  transition: box-shadow 0.18s, border 0.18s;
+  outline: none;
+}
+.market-chatbot-form input[type="text"]:focus {
+  box-shadow: 0 6px 18px rgba(6,182,163,0.06);
+  border: 1.5px solid var(--chat-accent);
+}
+.market-chatbot-form button {
+  background: var(--chat-accent);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 12px 20px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  box-shadow: 0 6px 18px rgba(6,182,163,0.08);
+  transition: background 0.18s, box-shadow 0.18s, transform 0.12s;
+}
+.market-chatbot-form button:hover, .market-chatbot-form button:focus {
+  background: var(--chat-accent-2);
+  box-shadow: 0 8px 24px rgba(6,182,163,0.12);
+  transform: translateY(-2px) scale(1.02);
+}
+
+/* Responsive adjustments (keep similar to before) */
 @media (max-width: 1000px) {
   .chartbot-row {
     flex-direction: column;
@@ -38,309 +333,14 @@
     margin-top: 24px;
   }
 }
-.market-container {
-  background: #18181b;
-  color: #f3f6fa;
-  padding: 0;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
-  position: relative;
-}
 
-.market-header {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 24px;
-  align-items: center;
-  flex-wrap: wrap;
-  width: 100%;
-  max-width: 900px;
-  padding: 0 16px;
-  background: rgba(18, 28, 44, 0.85);
-  border-radius: 18px;
-  box-shadow: 0 4px 24px #0004;
-  backdrop-filter: blur(2px);
-}
-
-.search-select {
-  display: flex;
-  gap: 14px;
-  flex-wrap: wrap;
-  background: linear-gradient(120deg, #1e293b 0%, #232f45 100%);
-  border-radius: 14px;
-  padding: 12px 20px;
-  box-shadow: 0 4px 18px #0003;
-  transition: box-shadow 0.22s, background 0.22s;
-}
-
-.search-select input,
-.search-select select {
-  padding: 12px 18px;
-  border: none;
-  border-radius: 10px;
-  outline: none;
-  background: linear-gradient(120deg, #232f45 0%, #1e293b 100%);
-  color: #f3f6fa;
-  font-size: 1.05rem;
-  box-shadow: 0 2px 10px #0002;
-  transition: box-shadow 0.22s, border 0.18s, background 0.22s;
-  font-weight: 500;
-}
-.search-select input:focus,
-.search-select select:focus {
-  box-shadow: 0 4px 18px #22c55e55;
-  background: linear-gradient(120deg, #232f45 0%, #1e293b 100%);
-  border: 1.5px solid #22c55e;
-}
-
-.header-right .price-label {
-  padding: 12px 24px;
-  border-radius: 12px;
-  font-weight: 700;
-  background: linear-gradient(90deg, #22c55e22 60%, #16a34a11 100%);
-  color: #22c55e;
-  font-size: 1.13rem;
-  box-shadow: 0 2px 12px #22c55e22;
-  letter-spacing: 0.5px;
-}
-.trading-btn {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 14px 36px;
-  border: none;
-  border-radius: 14px;
-  cursor: pointer;
-  font-weight: 700;
-  font-size: 1.13rem;
-  box-shadow: 0 4px 24px #22c55e22;
-  transition: background 0.22s, box-shadow 0.22s, transform 0.14s;
-  outline: none;
-  min-width: 120px;
-}
-.buy-btn {
-  background: linear-gradient(90deg, #22c55e 60%, #16a34a 100%);
-  color: #fff;
-  border: 1.5px solid #22c55e44;
-}
-.buy-btn:hover, .buy-btn:focus {
-  background: linear-gradient(90deg, #16a34a 60%, #22c55e 100%);
-  box-shadow: 0 6px 32px #22c55e55;
-  transform: translateY(-2px) scale(1.045);
-  border: 1.5px solid #22c55e;
-}
-.sell-btn {
-  background: linear-gradient(90deg, #ef4444 60%, #b91c1c 100%);
-  color: #fff;
-  border: 1.5px solid #ef444444;
-}
-.sell-btn:hover, .sell-btn:focus {
-  background: linear-gradient(90deg, #b91c1c 60%, #ef4444 100%);
-  box-shadow: 0 6px 32px #ef444455;
-  transform: translateY(-2px) scale(1.045);
-  border: 1.5px solid #ef4444;
-}
-
-.order-controls input {
-  padding: 14px 20px;
-  border-radius: 12px;
-  border: none;
-  width: 180px;
-  background: linear-gradient(120deg, #232f45 0%, #1e293b 100%);
-  color: #f3f6fa;
-  font-size: 1.08rem;
-  font-weight: 500;
-  box-shadow: 0 2px 10px #0002;
-  transition: box-shadow 0.22s, border 0.18s, background 0.22s;
-  outline: none;
-}
-.order-controls input:focus {
-  box-shadow: 0 4px 18px #22c55e55;
-  background: linear-gradient(120deg, #232f45 0%, #1e293b 100%);
-  border: 1.5px solid #22c55e;
-}
-
-
-.chart-container {
-  background: linear-gradient(135deg, #181f2a 60%, #0f172a 100%);
-  border-radius: 22px;
-  padding: 0;
-  margin-top: 28px;
-  margin-bottom: 40px;
-  box-shadow: 0 8px 32px 0 #00000060;
-  min-height: 420px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  max-width: 900px;
-  overflow: hidden;
-}
-
-.order-controls {
-  display: flex;
-  justify-content: center;
-  gap: 18px;
-  margin-top: 32px;
-  flex-wrap: wrap;
-  background: linear-gradient(120deg, #1e293b 0%, #232f45 100%);
-  border-radius: 16px;
-  padding: 22px 28px;
-  box-shadow: 0 4px 18px #0003;
-  width: 100%;
-  max-width: 900px;
-}
-
-/* Floating Chatbot Styles */
-.market-chatbot {
-  width: 340px;
-  max-width: 92vw;
-  background: #10151a;
-  border-radius: 22px;
-  box-shadow: 0 8px 32px #000a, 0 1.5px 8px #22c55e22;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  transition: box-shadow 0.22s, transform 0.18s;
-  min-height: 0;
-  min-width: 0;
-  border: 1.5px solid #232f45;
-}
-
-.chart-container .market-chatbot {
-  position: absolute;
-  right: 24px;
-  bottom: 24px;
-  z-index: 10;
-}
-.market-chatbot-header {
-  width: 100%;
-  background: linear-gradient(90deg, #22c55e22 60%, #16a34a11 100%);
-  padding: 12px 0;
-  text-align: center;
-  color: #22c55e;
-  font-weight: 700;
-  font-size: 1.08rem;
-  letter-spacing: 1px;
-  border-top-left-radius: 22px;
-  border-top-right-radius: 22px;
-  border-bottom: 1px solid #232f45;
-}
-.market-chatbot-body {
-  width: 100%;
-  min-height: 80px;
-  background: #181f2a;
-  padding: 18px 16px 12px 16px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  align-items: flex-start;
-  justify-content: flex-end;
-}
-.market-chatbot-msg {
-  border-radius: 14px;
-  padding: 10px 16px;
-  margin-bottom: 6px;
-  max-width: 80%;
-  font-size: 1rem;
-  box-shadow: 0 2px 8px #0002;
-}
-.market-chatbot-msg.user {
-  align-self: flex-end;
-  background: #22c55e;
-  color: #fff;
-}
-.market-chatbot-msg.bot {
-  align-self: flex-start;
-  background: #232f45;
-  color: #fff;
-}
-.market-chatbot-msg.bot.highlight {
-  background: #22c55e;
-  color: #fff;
-}
-.market-chatbot-form {
-  width: 100%;
-  display: flex;
-  gap: 8px;
-  margin-top: 4px;
-}
-.market-chatbot-form input[type="text"] {
-  flex: 1;
-  padding: 12px 14px;
-  border-radius: 10px;
-  border: none;
-  background: #232f45;
-  color: #fff;
-  font-size: 1rem;
-  box-shadow: 0 1px 4px #0001;
-  transition: box-shadow 0.18s, border 0.18s;
-  outline: none;
-}
-.market-chatbot-form input[type="text"]:focus {
-  box-shadow: 0 2px 8px #22c55e44;
-  border: 1.5px solid #22c55e;
-}
-.market-chatbot-form button {
-  background: #22c55e;
-  color: #fff;
-  border: none;
-  border-radius: 10px;
-  padding: 12px 20px;
-  font-weight: 600;
-  font-size: 1rem;
-  cursor: pointer;
-  box-shadow: 0 2px 8px #22c55e22;
-  transition: background 0.18s, box-shadow 0.18s, transform 0.12s;
-}
-.market-chatbot-form button:hover, .market-chatbot-form button:focus {
-  background: #16a34a;
-  box-shadow: 0 4px 16px #22c55e55;
-  transform: translateY(-1px) scale(1.04);
-}
-
+/* keep small-screen styles similar */
 @media (max-width: 600px) {
-  .market-container {
-    padding: 16px 0 16px 0;
-  }
-  .market-header, .order-controls, .chart-container {
-    max-width: 98vw;
-    padding-left: 4px;
-    padding-right: 4px;
-  }
-  .market-header, .order-controls {
-    border-radius: 10px;
-    padding: 10px 4px;
-  }
-  .chart-container {
-    border-radius: 12px;
-    min-height: 260px;
-    margin-bottom: 16px;
-  }
-  .market-chatbot {
-    position: static;
-    width: 98vw;
-    max-width: 98vw;
-    border-radius: 16px;
-    margin: 0 auto;
-  }
-  .chart-container .market-chatbot {
-    position: static;
-    right: unset;
-    bottom: unset;
-    z-index: 10;
-    width: 98vw;
-    max-width: 98vw;
-    border-radius: 16px;
-    margin: 0 auto;
-  }
-  .market-chatbot-header {
-    border-top-left-radius: 16px;
-    border-top-right-radius: 16px;
-    font-size: 1rem;
-  }
+  .market-container { padding: 16px 0 16px 0; }
+  .market-header, .order-controls, .chart-container { max-width: 98vw; padding-left: 4px; padding-right: 4px; }
+  .market-header, .order-controls { border-radius: 10px; padding: 10px 4px; }
+  .chart-container { border-radius: 12px; min-height: 260px; margin-bottom: 16px; }
+  .market-chatbot { position: static; width: 98vw; max-width: 98vw; border-radius: 16px; margin: 0 auto; }
+  .chart-container .market-chatbot { position: static; right: unset; bottom: unset; z-index: 10; width: 98vw; max-width: 98vw; border-radius: 16px; margin: 0 auto; }
+  .market-chatbot-header { border-top-left-radius: 16px; border-top-right-radius: 16px; font-size: 1rem; }
 }

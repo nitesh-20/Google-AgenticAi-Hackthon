@@ -6,7 +6,6 @@ import { auth } from "./firebase";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import MainApp from "./pages/MainApp";
-import Landing from "./pages/Landing";
 
 const App = () => {
   const [user, setUser] = useState(null);
@@ -31,8 +30,7 @@ const App = () => {
       <Routes>
         <Route path="/login" element={!isAuthenticated ? <Login /> : <Navigate to="/" />} />
         <Route path="/signup" element={!isAuthenticated ? <Signup /> : <Navigate to="/" />} />
-        <Route path="/landing" element={<Landing />} />
-        <Route path="/*" element={isAuthenticated ? <MainApp user={user} /> : <Navigate to="/landing" />} />
+        <Route path="/*" element={isAuthenticated ? <MainApp user={user} /> : <Navigate to="/login" />} />
       </Routes>
     </Router>
   );

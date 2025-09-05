@@ -111,7 +111,7 @@ const MarketCharts = () => {
         <div className="chartbot-row">
           <div className="chart-container">
             <iframe
-              src={`https://s.tradingview.com/widgetembed/?symbol=${commodityConfig[selectedCommodity].symbol}&interval=1&theme=dark`}
+              src={`https://s.tradingview.com/widgetembed/?symbol=${commodityConfig[selectedCommodity].symbol}&interval=1&theme=light`}
               width="100%"
               height="500"
               frameBorder="0"

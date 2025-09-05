@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { 
   Heart, 
   MessageCircle, 
@@ -24,6 +24,8 @@ import {
   BarChart3
 } from 'lucide-react';
 import '../styles/AgriSocio.css';
+import { onAuthStateChanged } from 'firebase/auth';
+import { auth } from '../firebase';
 
 const AgriSocio = () => {
   // Home feed posts (restored original content)
@@ -273,18 +275,7 @@ const AgriSocio = () => {
   const [commentInputs, setCommentInputs] = useState({});
   const [showComments, setShowComments] = useState({});
   const [shareMsg, setShareMsg] = useState('');
-  const fileInputRef = useRef(null);
-  const videoInputRef = useRef(null);
-
-  // Fake users for DM
-  const fakeUsers = [
-    { id: 'u1', name: 'AgriTech India', handle: 'agritech_in', avatar: '/placeholder.svg' },
-    { id: 'u2', name: 'Organic Farming', handle: 'organic_farms', avatar: '/placeholder.svg' },
-    { id: 'u3', name: 'Farm Equipment', handle: 'farm_equip', avatar: '/placeholder.svg' },
-    { id: 'u4', name: 'Priya Agri Solutions', handle: 'priya_agri', avatar: '/placeholder.svg' }
-  ];
-
-  const currentUser = {
+  const [currentUser, setCurrentUser] = useState({
     id: 'current',
     name: 'Your Farm',
     handle: 'yourfarm',
@@ -294,7 +285,59 @@ const AgriSocio = () => {
     location: 'Your Location',
     following: 150,
     followers: 89
+  });
+
+  // Profile edit modal state
+  const [editOpen, setEditOpen] = useState(false);
+  const [editName, setEditName] = useState(currentUser.name);
+  const [editHandle, setEditHandle] = useState(currentUser.handle);
+  const [editAvatarPreview, setEditAvatarPreview] = useState(currentUser.avatar);
+  const editFileRef = useRef(null);
+  const fileInputRef = useRef(null);
+  const videoInputRef = useRef(null);
+
+  // Populate currentUser from Firebase auth when available
+  useEffect(() => {
+    const unsub = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setCurrentUser((prev) => ({
+          ...prev,
+          id: user.uid || prev.id,
+          name: user.displayName || prev.name,
+          handle: (user.email && user.email.split('@')[0]) || prev.handle,
+          avatar: user.photoURL || prev.avatar
+        }));
+      }
+    });
+    return () => unsub();
+  }, []);
+
+  // open edit modal and initialize fields
+  const openEditProfile = () => {
+    setEditName(currentUser.name || '');
+    setEditHandle(currentUser.handle || '');
+    setEditAvatarPreview(currentUser.avatar || '/placeholder.svg');
+    setEditOpen(true);
   };
+
+  const handleAvatarPick = (e) => {
+    const f = e.target.files && e.target.files[0];
+    if (!f) return;
+    const url = URL.createObjectURL(f);
+    setEditAvatarPreview(url);
+  };
+
+  const saveProfile = () => {
+    setCurrentUser((prev) => ({ ...prev, name: editName, handle: editHandle, avatar: editAvatarPreview }));
+    setEditOpen(false);
+  };
+
+  const fakeUsers = [
+    { id: 'u1', name: 'AgriTech India', handle: 'agritech_in', avatar: '/placeholder.svg' },
+    { id: 'u2', name: 'Organic Farming', handle: 'organic_farms', avatar: '/placeholder.svg' },
+    { id: 'u3', name: 'Farm Equipment', handle: 'farm_equip', avatar: '/placeholder.svg' },
+    { id: 'u4', name: 'Priya Agri Solutions', handle: 'priya_agri', avatar: '/placeholder.svg' }
+  ];
 
   const trendingTopics = [
     { tag: '#WheatHarvest', posts: '12.5K' },
@@ -410,6 +453,7 @@ const AgriSocio = () => {
               <strong style={{fontSize:13}}>{currentUser.name}</strong>
               <small style={{color:'var(--muted)'}}>@{currentUser.handle}</small>
             </div>
+            <button className="btn btn-ghost" style={{marginLeft:8}} onClick={openEditProfile} title="Edit profile">Edit</button>
           </div>
         </div>
       </div>
@@ -514,6 +558,38 @@ const AgriSocio = () => {
         </aside>
 
       </div>
+
+      {/* Profile Edit Modal (local only) */}
+      {editOpen && (
+        <div className="modal-backdrop" style={{position:'fixed',left:0,top:0,right:0,bottom:0,background:'rgba(2,6,23,0.45)',display:'flex',alignItems:'center',justifyContent:'center',zIndex:9999}}>
+          <div className="card" style={{width:480,maxWidth:'92%',padding:18}}>
+            <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:12}}>
+              <h3 style={{margin:0}}>Edit Profile</h3>
+              <button className="btn btn-ghost" onClick={()=>setEditOpen(false)}><X size={16} /></button>
+            </div>
+            <div style={{display:'flex',gap:12,alignItems:'center',marginBottom:12}}>
+              <img src={editAvatarPreview} alt="avatar" style={{width:64,height:64,borderRadius:10,objectFit:'cover',border:'1px solid rgba(9,20,25,0.04)'}} />
+              <div style={{display:'flex',flexDirection:'column',gap:8}}>
+                <input ref={editFileRef} type="file" accept="image/*" style={{display:'none'}} onChange={handleAvatarPick} />
+                <div style={{display:'flex',gap:8}}>
+                  <button className="btn btn-ghost" onClick={() => editFileRef.current && editFileRef.current.click()}><Camera size={14} /> Change</button>
+                  <button className="btn btn-ghost" onClick={() => setEditAvatarPreview('/placeholder.svg')}>Reset</button>
+                </div>
+              </div>
+            </div>
+            <div style={{display:'flex',flexDirection:'column',gap:8}}>
+              <label style={{fontSize:13,color:'var(--text-muted)'}}>Name</label>
+              <input value={editName} onChange={(e)=>setEditName(e.target.value)} style={{padding:10,borderRadius:8,border:'1px solid rgba(9,20,25,0.06)'}} />
+              <label style={{fontSize:13,color:'var(--text-muted)'}}>Handle</label>
+              <input value={editHandle} onChange={(e)=>setEditHandle(e.target.value)} style={{padding:10,borderRadius:8,border:'1px solid rgba(9,20,25,0.06)'}} />
+            </div>
+            <div style={{display:'flex',justifyContent:'flex-end',gap:8,marginTop:12}}>
+              <button className="btn btn-ghost" onClick={()=>setEditOpen(false)}>Cancel</button>
+              <button className="btn btn-primary" onClick={saveProfile}>Save</button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
