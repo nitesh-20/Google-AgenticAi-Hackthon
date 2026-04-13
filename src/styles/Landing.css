@@ -1,0 +1,62 @@
+.landing-gallery {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  scroll-behavior: smooth;
+}
+
+.background-slide {
+  width: 100vw;
+  height: 100vh;
+  background-size: 105% auto; /* ✅ Slightly zoomed to remove white side gaps */
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding-left: 5vw;
+  margin: 0;
+}
+
+
+
+.overlay-text {
+  color: #000000;
+  padding: 1rem 5rem;
+  font-size: 2rem;
+  max-width: 90%;
+  text-align: left;
+  background: none;
+  margin-bottom: 15rem;
+  backdrop-filter: brightness(100%);
+}
+
+ h3 {
+  font-size: 2.4rem;
+  margin-top: 0.5rem;
+  color: #333;
+}
+.custom-btn {
+  background-color: #007bff; /* blue color */
+  color: white;
+  padding: 1rem 2rem; /* bigger size */
+  font-size: 1.2rem;
+  border: 3px solid #0056b3; /* thick border */
+  border-radius: 8px; /* optional: rounded corners */
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.custom-btn:hover {
+  background-color: #0056b3; /* darker on hover */
+}
+
+@media (max-width: 768px) {
+  .overlay-text {
+    font-size: 1.4rem;
+    padding: 0.8rem 1.5rem;
+  }
+  .overlay-text h3 {
+    font-size: 1rem;
+  }
+}
