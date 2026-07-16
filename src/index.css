@@ -1,30 +1,30 @@
-/* Modern Google Sans / Inter style fonts */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@300;400;500;600;700;800;900&display=swap');
+/* Clean modern fonts */
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
 
 :root {
-  --bg-primary: #080b11;
-  --bg-secondary: rgba(16, 22, 34, 0.6);
-  --bg-sidebar: #0b0f19;
-  --border-color: rgba(255, 255, 255, 0.07);
-  --border-hover: rgba(255, 255, 255, 0.15);
+  --bg-primary: #040508;
+  --bg-secondary: rgba(10, 12, 18, 0.5);
+  --bg-sidebar: #06080e;
+  --border-color: rgba(255, 255, 255, 0.05);
+  --border-hover: rgba(0, 255, 102, 0.3);
   
-  /* Text */
-  --text-primary: #f3f4f6;
-  --text-secondary: #9ca3af;
-  --text-muted: #6b7280;
+  /* Text styling */
+  --text-primary: #ffffff;
+  --text-secondary: #8e9aaf;
+  --text-muted: #4e5b70;
 
-  /* Google Brand Colors + Ag Greens */
-  --google-blue: #4285f4;
-  --google-green: #34a853;
-  --google-yellow: #fbbc05;
-  --google-red: #ea4335;
+  /* Neon Brand colors (Annam.ai Style) */
+  --google-blue: #0088ff;
+  --google-green: #00ff66;
+  --google-yellow: #ffbb00;
+  --google-red: #ff3344;
   
-  --ag-green-primary: #10b981;
-  --ag-green-glow: rgba(16, 185, 129, 0.15);
+  --ag-green-primary: #00ff66;
+  --ag-green-glow: rgba(0, 255, 102, 0.12);
   
   /* Fonts */
-  --font-display: 'Outfit', sans-serif;
-  --font-sans: 'Inter', sans-serif;
+  --font-display: 'Plus Jakarta Sans', sans-serif;
+  --font-sans: 'Outfit', sans-serif;
 }
 
 * {
@@ -42,50 +42,76 @@ html, body {
   margin: 0;
   padding: 0;
   width: 100%;
+  -webkit-font-smoothing: antialiased;
 }
 
-/* Scrollbar styling */
+/* Premium Scrollbar */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 5px;
+  height: 5px;
 }
 ::-webkit-scrollbar-track {
   background: var(--bg-primary);
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 4px;
+  background: rgba(0, 255, 102, 0.2);
+  border-radius: 10px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(0, 255, 102, 0.4);
 }
 
-/* Glassmorphism utility */
+/* Glassmorphism Panel (Notion AI & Annam style) */
 .glass-panel {
-  background: var(--bg-secondary);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  background: rgba(10, 12, 18, 0.6);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
   border: 1px solid var(--border-color);
   border-radius: 24px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
 }
 
+/* Annam.ai Projects Style Glowing Cards */
 .glass-card {
-  background: rgba(255, 255, 255, 0.02);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.01) 0%, rgba(255, 255, 255, 0.03) 100%);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border: 1px solid var(--border-color);
-  border-radius: 20px;
+  border-radius: 24px;
   transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.glass-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 24px;
+  padding: 1.5px;
+  background: linear-gradient(135deg, rgba(255,255,255,0.05), transparent 60%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  transition: all 0.3s ease;
 }
 
 .glass-card:hover {
-  border-color: var(--border-hover);
-  background: rgba(255, 255, 255, 0.04);
-  transform: translateY(-4px);
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+  border-color: rgba(0, 255, 102, 0.25);
+  background: linear-gradient(135deg, rgba(0, 255, 102, 0.02) 0%, rgba(255, 255, 255, 0.03) 100%);
+  transform: translateY(-5px) scale(1.01);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), 0 0 30px rgba(0, 255, 102, 0.05);
 }
 
-/* Gradient mesh background */
+.glass-card:hover::before {
+  background: linear-gradient(135deg, rgba(0, 255, 102, 0.3), transparent 60%);
+}
+
+/* Grid & Satellite Mesh Background overlays */
 .gradient-mesh {
   position: fixed;
   top: 0;
@@ -94,90 +120,85 @@ html, body {
   bottom: 0;
   z-index: -2;
   overflow: hidden;
-  background-color: #05070a;
+  background-color: var(--bg-primary);
 }
 
 .mesh-glow {
   position: absolute;
   border-radius: 50%;
-  filter: blur(140px);
-  opacity: 0.15;
+  filter: blur(160px);
+  opacity: 0.12;
   mix-blend-mode: screen;
   pointer-events: none;
 }
 
 .glow-blue {
-  width: 50vw;
-  height: 50vw;
+  width: 60vw;
+  height: 60vw;
   background: var(--google-blue);
-  top: -10%;
+  top: -20%;
   left: -10%;
-  animation: float-slow 20s infinite alternate;
+  animation: float-slow 22s infinite alternate;
 }
 
 .glow-green {
-  width: 60vw;
-  height: 60vw;
+  width: 70vw;
+  height: 70vw;
   background: var(--google-green);
-  bottom: -15%;
+  bottom: -20%;
   right: -10%;
-  animation: float-slow 25s infinite alternate-reverse;
+  animation: float-slow 28s infinite alternate-reverse;
 }
 
 .glow-yellow {
-  width: 40vw;
-  height: 40vw;
+  width: 50vw;
+  height: 50vw;
   background: var(--google-yellow);
-  top: 40%;
-  left: 50%;
-  opacity: 0.08;
-  animation: float-slow 30s infinite alternate;
+  top: 30%;
+  left: 40%;
+  opacity: 0.05;
+  animation: float-slow 35s infinite alternate;
 }
 
-@keyframes float-slow {
-  0% { transform: translate(0, 0) scale(1); }
-  50% { transform: translate(5%, 5%) scale(1.1); }
-  100% { transform: translate(-5%, -5%) scale(0.9); }
-}
-
-/* Premium micro-interactions */
+/* Tactile Neon Interactive Buttons */
 .btn-primary {
-  background: linear-gradient(135deg, var(--google-green), #0f9d58);
-  color: #fff;
+  background: linear-gradient(135deg, var(--google-green) 0%, #00d655 100%);
+  color: #030406;
   border: none;
-  padding: 12px 24px;
-  border-radius: 14px;
-  font-weight: 600;
+  padding: 14px 28px;
+  border-radius: 16px;
+  font-weight: 700;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   font-family: var(--font-display);
+  box-shadow: 0 4px 20px rgba(0, 255, 102, 0.2);
 }
 
 .btn-primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(52, 168, 83, 0.3);
-  filter: brightness(1.1);
+  box-shadow: 0 8px 30px rgba(0, 255, 102, 0.4), 0 0 20px rgba(0, 255, 102, 0.2);
+  filter: brightness(1.05);
 }
 
 .btn-secondary {
-  background: rgba(255, 255, 255, 0.06);
+  background: rgba(255, 255, 255, 0.03);
   border: 1px solid var(--border-color);
   color: var(--text-primary);
-  padding: 12px 24px;
-  border-radius: 14px;
+  padding: 14px 28px;
+  border-radius: 16px;
   font-weight: 600;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .btn-secondary:hover {
-  background: rgba(255, 255, 255, 0.1);
-  border-color: var(--border-hover);
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.2);
   transform: translateY(-2px);
 }
