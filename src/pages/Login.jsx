@@ -21,7 +21,7 @@ export default function Login() {
         toast.error("Error signing up: " + error + " (Is Firebase configured?)");
       } else {
         toast.success("Successfully registered!");
-        navigate("/"); 
+        navigate("/app/workspace"); 
       }
     } else {
       toast.info("Logging in...");
@@ -30,7 +30,7 @@ export default function Login() {
         toast.error("Error logging in: " + error + " (Is Firebase configured?)");
       } else {
         toast.success("Successfully logged in!");
-        navigate("/"); 
+        navigate("/app/workspace"); 
       }
     }
   };

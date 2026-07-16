@@ -1,62 +1,235 @@
-.landing-gallery {
+/* Landing page styling - AgriSahayak AI Cinematic Look */
+
+.landing-container {
+  min-height: 100vh;
+  position: relative;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
   display: flex;
   flex-direction: column;
   align-items: center;
-  scroll-behavior: smooth;
+  overflow-x: hidden;
 }
 
-.background-slide {
-  width: 100vw;
-  height: 100vh;
-  background-size: 105% auto; /* ✅ Slightly zoomed to remove white side gaps */
-  background-position: center;
-  background-repeat: no-repeat;
+/* Cinematic Hero Section */
+.hero-section {
+  position: relative;
+  min-height: 90vh;
+  width: 100%;
   display: flex;
-  justify-content: flex-start;
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
-  padding-left: 5vw;
-  margin: 0;
+  text-align: center;
+  padding: 80px 24px;
+  z-index: 2;
+  overflow: hidden;
 }
 
+.satellite-grid {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    radial-gradient(circle at 50% 50%, rgba(52, 168, 83, 0.05) 1px, transparent 1px),
+    linear-gradient(rgba(255, 255, 255, 0.01) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.01) 1px, transparent 1px);
+  background-size: 80px 80px, 40px 40px, 40px 40px;
+  background-position: center;
+  z-index: -1;
+  opacity: 0.8;
+}
 
+.hero-glow {
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(16, 185, 129, 0.15) 0%, transparent 70%);
+  z-index: -1;
+  filter: blur(50px);
+}
 
-.overlay-text {
-  color: #000000;
-  padding: 1rem 5rem;
-  font-size: 2rem;
-  max-width: 90%;
+.badge-premium {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border-color);
+  padding: 8px 16px;
+  border-radius: 30px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  color: var(--google-green);
+  text-transform: uppercase;
+  margin-bottom: 24px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 0 15px rgba(52, 168, 83, 0.1);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.badge-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--google-green);
+  box-shadow: 0 0 8px var(--google-green);
+}
+
+.hero-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 6vw, 4.8rem);
+  font-weight: 900;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  max-width: 900px;
+  margin-bottom: 24px;
+  background: linear-gradient(180deg, #ffffff 30%, #a3a3a3 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero-subtext {
+  font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+  color: var(--text-secondary);
+  max-width: 600px;
+  margin-bottom: 40px;
+  line-height: 1.6;
+}
+
+.hero-ctas {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* Feature Showcase Grid */
+.features-section {
+  padding: 100px 24px;
+  width: 100%;
+  max-width: 1280px;
+  z-index: 2;
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 64px;
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: 2.5rem;
+  font-weight: 800;
+  margin-bottom: 16px;
+}
+
+.section-subtitle {
+  color: var(--text-secondary);
+  font-size: 1.1rem;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 24px;
+}
+
+/* Redesigned Card */
+.feature-card {
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
   text-align: left;
-  background: none;
-  margin-bottom: 15rem;
-  backdrop-filter: brightness(100%);
-}
-
- h3 {
-  font-size: 2.4rem;
-  margin-top: 0.5rem;
-  color: #333;
-}
-.custom-btn {
-  background-color: #007bff; /* blue color */
-  color: white;
-  padding: 1rem 2rem; /* bigger size */
-  font-size: 1.2rem;
-  border: 3px solid #0056b3; /* thick border */
-  border-radius: 8px; /* optional: rounded corners */
+  position: relative;
+  overflow: hidden;
+  height: 100%;
+  min-height: 280px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
 }
 
-.custom-btn:hover {
-  background-color: #0056b3; /* darker on hover */
+.card-glow-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255,255,255,0.03) 0%, transparent 60%);
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
 
-@media (max-width: 768px) {
-  .overlay-text {
-    font-size: 1.4rem;
-    padding: 0.8rem 1.5rem;
+.feature-card:hover .card-glow-layer {
+  opacity: 1;
+}
+
+.card-icon-container {
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 24px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--border-color);
+  color: var(--google-green);
+  transition: all 0.3s ease;
+}
+
+.feature-card:hover .card-icon-container {
+  transform: scale(1.1);
+  background: rgba(52, 168, 83, 0.1);
+  border-color: rgba(52, 168, 83, 0.3);
+}
+
+.card-title {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.card-description {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin-bottom: 20px;
+}
+
+.card-preview {
+  margin-top: auto;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--google-green);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  opacity: 0.7;
+  transition: all 0.2s ease;
+}
+
+.feature-card:hover .card-preview {
+  opacity: 1;
+  transform: translateX(4px);
+}
+
+@media (max-width: 480px) {
+  .hero-ctas {
+    flex-direction: column;
+    width: 100%;
   }
-  .overlay-text h3 {
-    font-size: 1rem;
+  .hero-ctas button {
+    width: 100%;
+    justify-content: center;
   }
 }
