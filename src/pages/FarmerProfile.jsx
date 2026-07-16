@@ -26,7 +26,7 @@ export default function FarmerProfile() {
   };
 
   return (
-    <div style={{ display: "grid", gridTemplateColumns: "1fr 340px", gap: 24 }}>
+    <div style={{ display: "grid", gridTemplateColumns: "1fr 340px", gap: 24, padding: 24, height: "100%", width: "100%", boxSizing: "border-box", overflowY: "auto" }}>
       
       {/* Left Pane: Farmer Info, Land Records and Badges */}
       <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>

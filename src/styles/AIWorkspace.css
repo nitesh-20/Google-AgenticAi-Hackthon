@@ -1,11 +1,9 @@
-/* AI Workspace & Command Center styling */
-
 .workspace-shell {
   display: grid;
   grid-template-columns: 240px 1fr 280px;
-  height: calc(100vh - 70px);
+  height: 100%;
+  width: 100%;
   overflow: hidden;
-  margin: -24px; /* offset parent padding */
 }
 
 /* Left Pane: Agent List */

@@ -86,7 +86,7 @@ export default function Marketplace() {
   ];
 
   return (
-    <div style={{ display: "grid", gridTemplateColumns: "1fr 360px", gap: 24 }}>
+    <div style={{ display: "grid", gridTemplateColumns: "1fr 360px", gap: 24, padding: 24, height: "100%", width: "100%", boxSizing: "border-box", overflowY: "auto" }}>
       
       {/* Left Pane: Charts & Auctions */}
       <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>

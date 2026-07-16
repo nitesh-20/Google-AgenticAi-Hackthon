@@ -103,7 +103,7 @@ export default function MCPAgents() {
   };
 
   return (
-    <div style={{ display: "grid", gridTemplateColumns: "1fr 340px", gap: 24, height: "calc(100vh - 120px)", overflow: "hidden" }}>
+    <div style={{ display: "grid", gridTemplateColumns: "1fr 340px", gap: 24, height: "100%", width: "100%", padding: 24, boxSizing: "border-box", overflow: "hidden" }}>
       {/* Dynamic SVG Drawing Panel */}
       <div className="glass-panel" style={{ position: "relative", overflow: "hidden", display: "flex", flexDirection: "column", padding: 24 }}>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 20 }}>

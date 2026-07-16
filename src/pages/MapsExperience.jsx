@@ -46,7 +46,7 @@ export default function MapsExperience() {
   };
 
   return (
-    <div style={{ display: "grid", gridTemplateColumns: "1fr 340px", gap: 24, height: "calc(100vh - 120px)", overflow: "hidden" }}>
+    <div style={{ display: "grid", gridTemplateColumns: "1fr 340px", gap: 24, height: "100%", width: "100%", padding: 24, boxSizing: "border-box", overflow: "hidden" }}>
       
       {/* Left Pane: Interactive SVG Satellite Map Canvas */}
       <div className="glass-panel" style={{ position: "relative", overflow: "hidden", display: "flex", flexDirection: "column", padding: 20 }}>

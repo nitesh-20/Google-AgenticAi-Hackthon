@@ -38,7 +38,7 @@ const carbonCreditHistory = [
 
 export default function AnalyticsDashboard() {
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
+    <div style={{ display: "flex", flexDirection: "column", gap: 24, padding: 24, height: "100%", width: "100%", boxSizing: "border-box", overflowY: "auto" }}>
       
       {/* Top row: Summary Widgets */}
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: 20 }}>
